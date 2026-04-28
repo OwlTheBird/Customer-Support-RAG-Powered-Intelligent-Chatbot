@@ -61,3 +61,7 @@ Thumbs.db
 # ------ ------ ------ ------ ------ ------
 amazon_qa_data.rar
 amazon_qa_data/
+milvus_data/
+.env
+data/amazon_qa_cleaned.csv
+data/cleaned_faq_dataset.csv
