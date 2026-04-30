@@ -1,26 +1,37 @@
-version: '3.5'
-
 # docker-compose up -d (-d is --detach to run in the background)
-# docker-compose down (deleted the containers)
+# docker-compose down (deletes the containers)
+# http://localhost:3000/ --> milvus:19530
 services:
   milvus:
-    container_name: milvus-standalone-db-1
     image: milvusdb/milvus:v2.6.15
-    command: [ "milvus", "run", "standalone" ]
-    environment:
-      DEPLOY_MODE: "STANDALONE"
-      # Embedded settings
-      ETCD_USE_EMBED: "true"
-      ETCD_DATA_DIR: "/var/lib/milvus/etcd"
-      COMMON_STORAGETYPE: "local"
-    volumes:
-      # Map your local folder to the container's data path
-      - ./milvus_data:/var/lib/milvus
     ports:
       - "19530:19530"
       - "9091:9091"
+    command: milvus run standalone
+    volumes:
+      - ./milvus_data:/var/lib/milvus
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9091/healthz" ]
       interval: 30s
       timeout: 20s
       retries: 3
+    environment:
+      DEPLOY_MODE: "STANDALONE"
+      ETCD_USE_EMBED: "true"
+      ETCD_DATA_DIR: "/var/lib/milvus/etcd"
+      COMMON_STORAGETYPE: "local"
+
+  attu:
+    image: zilliz/attu:v2.6.5
+    ports:
+      - "3000:3000"
+    environment:
+      - MILVUS_ADDRESS=milvus:19530
+    volumes:
+      - attu-data:/data
+    depends_on:
+      milvus:
+        condition: service_healthy
+
+volumes:
+  attu-data:
