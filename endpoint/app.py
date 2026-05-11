@@ -32,4 +32,6 @@ def stream():
                 safe = text.replace("\n", "\\n")
                 yield f"data: {safe}\n\n"
 
-    return Response(generate(), mimetype="text/event-stream")
+    return Response(
+        generate(), mimetype="text/event-stream"
+    )  # Server‑Sent Events (SSE)
