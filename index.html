@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 5 — RAG Chatbot Command Center</title>
+<style>
+/* ══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-base: #0a0e17;
+  --bg-surface: #111827;
+  --bg-raised: #1a2234;
+  --bg-glass: rgba(17, 24, 39, 0.65);
+  --bg-glass-hover: rgba(26, 34, 52, 0.8);
+  --border-subtle: rgba(99, 130, 191, 0.12);
+  --border-glow: rgba(99, 130, 191, 0.25);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f172a;
+
+  --accent-blue: #3b82f6;
+  --accent-blue-soft: rgba(59, 130, 246, 0.15);
+  --accent-green: #10b981;
+  --accent-green-soft: rgba(16, 185, 129, 0.15);
+  --accent-amber: #f59e0b;
+  --accent-amber-soft: rgba(245, 158, 11, 0.15);
+  --accent-red: #ef4444;
+  --accent-red-soft: rgba(239, 68, 68, 0.12);
+  --accent-purple: #8b5cf6;
+  --accent-purple-soft: rgba(139, 92, 246, 0.15);
+  --accent-cyan: #06b6d4;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow-blue: 0 0 20px rgba(59,130,246,0.15);
+  --shadow-glow-green: 0 0 20px rgba(16,185,129,0.15);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(59,130,246,0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.05), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.shell { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1; }
+
+/* ── Typography ─────────────────────────────────────────────── */
+h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+h3 { font-size: 1rem; font-weight: 600; }
+code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; font-size: 0.85em; background: rgba(99,130,191,0.1); padding: 2px 6px; border-radius: 4px; }
+
+/* ── Cards ──────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+.card:hover { border-color: var(--border-glow); box-shadow: var(--shadow-md); }
+
+/* ══════════════════════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════════════════════ */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.hero-text { flex: 1; min-width: 260px; }
+.hero-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent-blue); margin-bottom: 0.5rem;
+}
+.hero-label::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+.hero h1 { margin-bottom: 0.3rem; }
+.hero-sub { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* Progress Ring */
+.progress-ring-wrap { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+.progress-ring-wrap svg { transform: rotate(-90deg); }
+.progress-ring-bg { fill: none; stroke: var(--border-subtle); stroke-width: 8; }
+.progress-ring-fill { fill: none; stroke: var(--accent-blue); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+.progress-ring-text {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.progress-ring-pct { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+.progress-ring-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── Quick Stats Row ────────────────────────────────────────── */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card {
+  text-align: center; padding: 1rem 0.75rem;
+}
+.stat-value { font-size: 1.5rem; font-weight: 700; }
+.stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.stat-green { color: var(--accent-green); }
+.stat-amber { color: var(--accent-amber); }
+.stat-red { color: var(--accent-red); }
+.stat-blue { color: var(--accent-blue); }
+.stat-purple { color: var(--accent-purple); }
+.stat-cyan { color: var(--accent-cyan); }
+
+/* ══════════════════════════════════════════════════════════════
+   NAVIGATION TABS
+   ══════════════════════════════════════════════════════════════ */
+.tabs {
+  display: flex; gap: 4px; margin-bottom: 2rem;
+  background: var(--bg-surface); border-radius: var(--radius-md); padding: 4px;
+  border: 1px solid var(--border-subtle); overflow-x: auto;
+}
+.tab-btn {
+  flex: 1; min-width: 120px; padding: 0.6rem 1rem;
+  font-family: inherit; font-size: 0.8rem; font-weight: 500;
+  color: var(--text-secondary); background: transparent;
+  border: none; border-radius: var(--radius-sm); cursor: pointer;
+  transition: all var(--transition-fast); white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text-primary); background: var(--bg-raised); }
+.tab-btn.active { color: #fff; background: var(--accent-blue); box-shadow: var(--shadow-glow-blue); }
+.tab-panel { display: none; animation: fadeIn 0.3s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ══════════════════════════════════════════════════════════════
+   ARCHITECTURE DIAGRAM
+   ══════════════════════════════════════════════════════════════ */
+.arch-diagram {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; flex-wrap: wrap; padding: 2rem 1rem; overflow-x: auto;
+}
+.arch-node {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 1rem 1.2rem; border-radius: var(--radius-md);
+  background: var(--bg-raised); border: 1px solid var(--border-subtle);
+  min-width: 110px; text-align: center; position: relative;
+  transition: all var(--transition-base);
+}
+.arch-node:hover { border-color: var(--accent-blue); transform: translateY(-2px); box-shadow: var(--shadow-glow-blue); }
+.arch-node-icon { font-size: 1.6rem; line-height: 1; }
+.arch-node-title { font-size: 0.75rem; font-weight: 600; }
+.arch-node-detail { font-size: 0.6rem; color: var(--text-muted); max-width: 120px; }
+.arch-arrow {
+  display: flex; align-items: center; padding: 0 6px; color: var(--text-muted); font-size: 1.2rem;
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+@keyframes arrowPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+@media (max-width: 700px) {
+  .arch-diagram { flex-direction: column; }
+  .arch-arrow { transform: rotate(90deg); padding: 4px 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MILESTONES & TASKS
+   ══════════════════════════════════════════════════════════════ */
+.milestone {
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+}
+.milestone-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.25rem; cursor: pointer; user-select: none;
+  transition: background var(--transition-fast);
+  gap: 12px; flex-wrap: wrap;
+}
+.milestone-header:hover { background: var(--bg-glass-hover); }
+.milestone-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; }
+.milestone-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+  background: var(--accent-blue-soft); color: var(--accent-blue);
+}
+.milestone-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.milestone-progress-bar {
+  width: 100px; height: 4px; border-radius: 2px; background: var(--border-subtle); overflow: hidden;
+}
+.milestone-progress-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+.milestone-count { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+.milestone-chevron {
+  width: 20px; height: 20px; transition: transform var(--transition-base);
+  color: var(--text-muted);
+}
+.milestone.open .milestone-chevron { transform: rotate(180deg); }
+.milestone-body { display: none; border-top: 1px solid var(--border-subtle); }
+.milestone.open .milestone-body { display: block; }
+
+/* Task Row */
+.task-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer; transition: background var(--transition-fast);
+  position: relative;
+}
+.task-row:last-child { border-bottom: none; }
+.task-row:hover { background: var(--bg-glass-hover); }
+
+.task-check {
+  width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+  border: 1.5px solid var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition-fast); background: transparent;
+}
+.task-check.checked { background: var(--accent-green); border-color: var(--accent-green); }
+.task-check.checked::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+.task-check.partial { border-color: var(--accent-amber); background: var(--accent-amber-soft); }
+.task-check.partial::after { content: '~'; color: var(--accent-amber); font-size: 13px; font-weight: 700; }
+
+.task-content { flex: 1; min-width: 0; }
+.task-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.task-title { font-size: 0.875rem; transition: color var(--transition-fast); }
+.task-row.done .task-title { color: var(--text-muted); text-decoration: line-through; }
+
+.badge {
+  font-size: 0.6rem; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  text-transform: uppercase; letter-spacing: 0.05em; flex-shrink: 0; white-space: nowrap;
+}
+.badge-done { background: var(--accent-green-soft); color: var(--accent-green); }
+.badge-progress { background: var(--accent-amber-soft); color: var(--accent-amber); }
+.badge-todo { background: rgba(100,116,139,0.15); color: var(--text-muted); }
+.badge-role { background: var(--accent-purple-soft); color: var(--accent-purple); font-size: 0.58rem; }
+.badge-priority { background: var(--accent-blue-soft); color: var(--accent-blue); }
+
+/* ── Assignee chip / button ─────────────────────────────────── */
+.assignee-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px 3px 7px; border-radius: 12px;
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.02em;
+  cursor: pointer; border: 1.5px solid transparent;
+  transition: opacity var(--transition-fast), box-shadow var(--transition-fast);
+  user-select: none; flex-shrink: 0; white-space: nowrap;
+  position: relative;
+}
+.assignee-chip:hover { opacity: 0.85; box-shadow: 0 0 0 2px rgba(255,255,255,0.1); }
+.assignee-chip-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.assignee-chip-role {
+  font-weight: 400; opacity: 0.75; font-size: 0.58rem;
+}
+.assign-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 10px;
+  font-size: 0.62rem; font-weight: 500; color: var(--text-muted);
+  background: transparent; border: 1.5px dashed var(--text-muted);
+  cursor: pointer; transition: all var(--transition-fast);
+  user-select: none; flex-shrink: 0; white-space: nowrap;
+  font-family: inherit; position: relative;
+}
+.assign-btn:hover { color: var(--text-secondary); border-color: var(--text-secondary); }
+
+/* ── Assignment dropdown ─────────────────────────────────────── */
+.assign-dropdown {
+  position: absolute; top: calc(100% + 4px); left: 0;
+  background: var(--bg-raised); border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  z-index: 1000; min-width: 220px;
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  overflow: hidden;
+}
+.assign-dropdown.open {
+  opacity: 1; transform: translateY(0);
+  pointer-events: all;
+}
+.assign-dropdown-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0.55rem 0.9rem; cursor: pointer;
+  transition: background var(--transition-fast);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.assign-dropdown-item:last-child { border-bottom: none; }
+.assign-dropdown-item:hover { background: var(--bg-glass-hover); }
+.assign-dropdown-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.assign-dropdown-label { font-size: 0.8rem; font-weight: 600; }
+.assign-dropdown-role { font-size: 0.68rem; color: var(--text-muted); }
+.assign-dropdown-unassign {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0.5rem 0.9rem; cursor: pointer;
+  color: var(--accent-red); font-size: 0.75rem;
+  transition: background var(--transition-fast);
+  border-top: 1px solid var(--border-subtle);
+}
+.assign-dropdown-unassign:hover { background: var(--accent-red-soft); }
+
+/* Task Details (collapsible) */
+.task-details {
+  display: none; margin-top: 0.6rem; padding: 0.75rem 1rem;
+  background: var(--bg-surface); border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle); font-size: 0.8rem; line-height: 1.7;
+  animation: fadeIn 0.2s ease;
+}
+.task-row.expanded .task-details { display: block; }
+.detail-section { margin-bottom: 0.6rem; }
+.detail-section:last-child { margin-bottom: 0; }
+.detail-label {
+  font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent-blue); margin-bottom: 3px;
+}
+.detail-text { color: var(--text-secondary); }
+.detail-text ol, .detail-text ul { padding-left: 1.2rem; }
+.detail-text li { margin-bottom: 3px; }
+
+/* ══════════════════════════════════════════════════════════════
+   TEAM SECTION
+   ══════════════════════════════════════════════════════════════ */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.team-card { position: relative; overflow: hidden; }
+.team-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.team-role { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 4px; }
+.team-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; }
+.team-tasks { list-style: none; }
+.team-tasks li {
+  font-size: 0.8rem; color: var(--text-secondary); padding: 4px 0; display: flex; align-items: flex-start; gap: 6px;
+}
+.team-tasks li::before { content: '→'; color: var(--text-muted); flex-shrink: 0; }
+.team-tasks-empty { font-size: 0.8rem; color: var(--text-muted); font-style: italic; padding: 4px 0; }
+
+/* ══════════════════════════════════════════════════════════════
+   BUDGET SECTION
+   ══════════════════════════════════════════════════════════════ */
+.budget-bar-outer {
+  height: 28px; background: var(--bg-surface); border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--border-subtle); position: relative; margin: 1rem 0;
+}
+.budget-bar-fill {
+  height: 100%; border-radius: 14px; display: flex; align-items: center; padding: 0 12px;
+  font-size: 0.7rem; font-weight: 600; color: #fff;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+  transition: width 1s ease;
+}
+.budget-remaining {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  font-size: 0.7rem; color: var(--text-muted);
+}
+.budget-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.8rem; }
+.budget-table th, .budget-table td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border-subtle); }
+.budget-table th { color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.budget-table td:last-child { text-align: right; font-weight: 600; }
+
+/* ══════════════════════════════════════════════════════════════
+   PRIORITY ROADMAP
+   ══════════════════════════════════════════════════════════════ */
+.roadmap { position: relative; padding-left: 2rem; }
+.roadmap::before {
+  content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px;
+  background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent-green));
+  border-radius: 1px;
+}
+.roadmap-item { position: relative; margin-bottom: 1.25rem; }
+.roadmap-item:last-child { margin-bottom: 0; }
+.roadmap-dot {
+  position: absolute; left: -2rem; top: 6px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--bg-base); border: 2px solid var(--accent-blue);
+  z-index: 1; transition: all var(--transition-base);
+}
+.roadmap-item:hover .roadmap-dot { background: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue); }
+.roadmap-item-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.roadmap-title { font-size: 0.9rem; font-weight: 600; }
+.roadmap-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; }
+
+/* ══════════════════════════════════════════════════════════════
+   LEGEND
+   ══════════════════════════════════════════════════════════════ */
+.legend {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 0.75rem 1.25rem; margin-bottom: 1.5rem;
+  background: var(--bg-surface); border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle); font-size: 0.72rem; color: var(--text-secondary);
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-swatch {
+  width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .shell { padding: 1rem 0.75rem 3rem; }
+  .hero { flex-direction: column; text-align: center; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .tabs { flex-wrap: nowrap; }
+  .tab-btn { font-size: 0.7rem; padding: 0.5rem 0.6rem; min-width: 80px; }
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 3px; }
+
+/* ── Print ──────────────────────────────────────────────────── */
+@media print {
+  body { background: #fff; color: #000; }
+  .card, .milestone { background: #f8f8f8; border: 1px solid #ddd; }
+  .tabs { display: none; }
+  .tab-panel { display: block !important; page-break-inside: avoid; margin-bottom: 2rem; }
+  .milestone-body { display: block !important; }
+  .task-details { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ════════════ HERO ════════════ -->
+  <header class="hero">
+    <div class="hero-text">
+      <div class="hero-label">DEPI Graduation Project</div>
+      <h1>Customer Support RAG Chatbot</h1>
+      <p class="hero-sub">Project 5 — Retrieval-Augmented Generation · Command Center</p>
+    </div>
+    <div class="progress-ring-wrap">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <circle class="progress-ring-bg" cx="55" cy="55" r="48"/>
+        <circle class="progress-ring-fill" id="progressRing" cx="55" cy="55" r="48"
+                stroke-dasharray="301.6" stroke-dashoffset="301.6"/>
+      </svg>
+      <div class="progress-ring-text">
+        <span class="progress-ring-pct" id="progressPct">0%</span>
+        <span class="progress-ring-label">Complete</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════════════ STATS ════════════ -->
+  <div class="stats-row" id="statsRow">
+    <div class="card stat-card"><div class="stat-value stat-green" id="statDone">0</div><div class="stat-label">Done</div></div>
+    <div class="card stat-card"><div class="stat-value stat-amber" id="statPartial">0</div><div class="stat-label">Partial</div></div>
+    <div class="card stat-card"><div class="stat-value stat-cyan" id="statAssigned">0</div><div class="stat-label">Assigned</div></div>
+    <div class="card stat-card"><div class="stat-value stat-blue" id="statTodo">0</div><div class="stat-label">Remaining</div></div>
+    <div class="card stat-card"><div class="stat-value stat-purple" id="statBudget">$73</div><div class="stat-label">Budget Left</div></div>
+  </div>
+
+  <!-- ════════════ TABS ════════════ -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="milestones" role="tab">📋 Milestones</button>
+    <button class="tab-btn" data-tab="architecture" role="tab">🏗️ Architecture</button>
+    <button class="tab-btn" data-tab="team" role="tab">👥 Team</button>
+    <button class="tab-btn" data-tab="roadmap" role="tab">🗺️ Roadmap</button>
+    <button class="tab-btn" data-tab="budget" role="tab">💰 Budget</button>
+  </nav>
+
+  <!-- ════════════ TAB: MILESTONES ════════════ -->
+  <section class="tab-panel active" id="panel-milestones">
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--accent-green)"></div> Done</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--accent-amber)"></div> Partial</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--text-muted)"></div> Not Started</div>
+      <div class="legend-item" style="margin-left:auto; font-size:0.65rem; color:var(--text-muted);">Click rows to expand · Checkboxes persist · Click badge to reassign</div>
+    </div>
+
+    <div id="milestonesContainer"></div>
+  </section>
+
+  <!-- ════════════ TAB: ARCHITECTURE ════════════ -->
+  <section class="tab-panel" id="panel-architecture">
+    <h2 style="margin-bottom:1.5rem;">System Architecture</h2>
+
+    <div class="card" style="margin-bottom:1.5rem;">
+      <h3 style="margin-bottom:1rem; color:var(--accent-blue);">Production Pipeline (Flask Endpoint)</h3>
+      <div class="arch-diagram">
+        <div class="arch-node">
+          <div class="arch-node-icon">👤</div>
+          <div class="arch-node-title">User</div>
+          <div class="arch-node-detail">Chat UI (SSE)</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🌐</div>
+          <div class="arch-node-title">Flask</div>
+          <div class="arch-node-detail">/stream · /test</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🔍</div>
+          <div class="arch-node-title">Pinecone</div>
+          <div class="arch-node-detail">53,842 vectors · llama-text-embed-v2 · 1024d</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">📝</div>
+          <div class="arch-node-title">LangChain</div>
+          <div class="arch-node-detail">Prompt Template + Chain</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🤖</div>
+          <div class="arch-node-title">Gemini</div>
+          <div class="arch-node-detail">gemini-3.1-flash-lite (API)</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">💬</div>
+          <div class="arch-node-title">Response</div>
+          <div class="arch-node-detail">SSE stream · Markdown</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem;">
+      <h3 style="margin-bottom:1rem; color:var(--accent-purple);">Development Pipeline (Notebook 01)</h3>
+      <div class="arch-diagram">
+        <div class="arch-node">
+          <div class="arch-node-icon">📊</div>
+          <div class="arch-node-title">CSV Data</div>
+          <div class="arch-node-detail">HF FAQ + Amazon Q/A</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🧹</div>
+          <div class="arch-node-title">Preprocess</div>
+          <div class="arch-node-detail">Clean · Dedup · Metadata</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🧬</div>
+          <div class="arch-node-title">Embeddings</div>
+          <div class="arch-node-detail">sentence-transformers (local GPU)</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🗄️</div>
+          <div class="arch-node-title">Milvus</div>
+          <div class="arch-node-detail">Docker · faq_qa_rag collection</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-node-icon">🤖</div>
+          <div class="arch-node-title">FLAN-T5</div>
+          <div class="arch-node-detail">Seq2Seq · Local GPU</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:1rem; color:var(--accent-amber);">⚠️ Identified Architectural Risks</h3>
+      <div style="display:grid; gap:0.75rem;">
+        <div style="padding:0.6rem 0.8rem; background:var(--accent-red-soft); border-radius:var(--radius-sm); border-left:3px solid var(--accent-red); font-size:0.82rem;">
+          <strong>Thread Starvation:</strong> Flask dev server is single-threaded. Each <code>/stream</code> SSE connection blocks until complete. 2 concurrent users = 1 waits. Fix: Gunicorn <code>-w 2 --threads 2</code>.
+        </div>
+        <div style="padding:0.6rem 0.8rem; background:var(--accent-amber-soft); border-radius:var(--radius-sm); border-left:3px solid var(--accent-amber); font-size:0.82rem;">
+          <strong>No Error Handling:</strong> <code>retriever.py</code> and <code>app.py</code> have zero try/except. A Pinecone timeout or Gemini rate-limit crashes the worker.
+        </div>
+        <div style="padding:0.6rem 0.8rem; background:var(--accent-amber-soft); border-radius:var(--radius-sm); border-left:3px solid var(--accent-amber); font-size:0.82rem;">
+          <strong>No Input Validation:</strong> <code>user_input</code> can be <code>None</code>, empty, or adversarial. Passes directly to Pinecone search with no length limit.
+        </div>
+        <div style="padding:0.6rem 0.8rem; background:rgba(100,116,139,0.15); border-radius:var(--radius-sm); border-left:3px solid var(--text-muted); font-size:0.82rem;">
+          <strong>Dead Config:</strong> <code>config.py</code> sets <code>TOP_K=3</code> but <code>app.py</code> hardcodes <code>top_k=2</code> in both routes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ TAB: TEAM ════════════ -->
+  <section class="tab-panel" id="panel-team">
+    <h2 style="margin-bottom:1.5rem;">Team Task Distribution</h2>
+    <div class="team-grid" id="teamGrid"></div>
+    <p style="margin-top:1rem; font-size:0.75rem; color:var(--text-muted);">
+      Task assignments are live — use the badge on each task row in the Milestones tab to reassign.
+    </p>
+  </section>
+
+  <!-- ════════════ TAB: ROADMAP ════════════ -->
+  <section class="tab-panel" id="panel-roadmap">
+    <h2 style="margin-bottom:1.5rem;">Priority Execution Roadmap</h2>
+    <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:1.5rem;">Ordered by dependency chain — each step unblocks the next. Budget: ~$27 projected of $100.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-dot"></div>
+        <div class="roadmap-item-header">
+          <span class="badge badge-priority">P1 · Unblocks All Eval</span>
+          <span class="roadmap-title">Golden Dataset Curation</span>
+        </div>
+        <div class="roadmap-desc">
+          Extract 50-100 stratified questions from 53K corpus. Use original FAQ answers as ground truth. Add 30+ OOD queries with expected refusal. Save as <code>evaluation/golden_dataset.json</code>.
+          <br><strong>Owner:</strong> Member 4 · <strong>Effort:</strong> ~4 hours · <strong>Cost:</strong> $0
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot" style="border-color:var(--accent-cyan)"></div>
+        <div class="roadmap-item-header">
+          <span class="badge badge-priority">P2 · Quantitative Proof</span>
+          <span class="roadmap-title">Evaluation Framework (BLEU/ROUGE + RAGAS)</span>
+        </div>
+        <div class="roadmap-desc">
+          Create <code>evaluation/evaluate.py</code>: batch-query golden dataset, compute ROUGE-L via <code>rouge-score</code>, BLEU via <code>nltk</code>.
+          Create <code>evaluation/ragas_eval.py</code>: faithfulness, answer_relevance, context_precision via <code>ragas</code> with Gemini as judge.
+          <br><strong>Owner:</strong> Member 3 · <strong>Effort:</strong> ~6 hours · <strong>Cost:</strong> &lt; $1 (Gemini API)
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot" style="border-color:var(--accent-green)"></div>
+        <div class="roadmap-item-header">
+          <span class="badge badge-priority">P3 · Telemetry</span>
+          <span class="roadmap-title">Query/Answer Logging</span>
+        </div>
+        <div class="roadmap-desc">
+          Add logging middleware to <code>app.py</code>: append to <code>logs/queries.jsonl</code> with timestamp, user_input, answer, retriever_scores, latency_ms. Use <code>RotatingFileHandler</code>.
+          <br><strong>Owner:</strong> Member 6 · <strong>Effort:</strong> ~2 hours · <strong>Cost:</strong> $0
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot" style="border-color:var(--accent-amber)"></div>
+        <div class="roadmap-item-header">
+          <span class="badge badge-priority">P4 · Quality</span>
+          <span class="roadmap-title">Prompt Engineering &amp; Hyperparameter Tuning</span>
+        </div>
+        <div class="roadmap-desc">
+          Define 3-5 prompt variants. Configure <code>temperature=[0.0, 0.1, 0.3]</code>, <code>top_k=[2, 3, 5]</code>. Benchmark each combo against golden dataset. Track in CSV or MLflow.
+          <br><strong>Owner:</strong> Member 6 + Member 5 · <strong>Effort:</strong> ~4 hours · <strong>Cost:</strong> &lt; $0.50
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot" style="border-color:var(--accent-purple)"></div>
+        <div class="roadmap-item-header">
+          <span class="badge badge-priority">P5 · Ship It</span>
+          <span class="roadmap-title">Azure Deployment</span>
+        </div>
+        <div class="roadmap-desc">
+          Dockerfile → Gunicorn → Azure App Service B1. Move secrets to App Settings. API key middleware. CORS config.
+          <br><strong>Owner:</strong> Member 2 · <strong>Effort:</strong> ~4 hours · <strong>Cost:</strong> ~$13/mo
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot" style="border-color:var(--accent-purple)"></div>
+        <div class="roadmap-item-header">
+          <span class="badge badge-priority">P6 · MLOps</span>
+          <span class="roadmap-title">MLflow + Embeddings Refresh</span>
+        </div>
+        <div class="roadmap-desc">
+          File-based MLflow tracking (<code>file:///app/mlruns</code>). Integrate into eval scripts. SHA-256 dedup for Pinecone refresh. CRON via Azure WebJob or GitHub Actions.
+          <br><strong>Owner:</strong> Member 6 + Member 1 · <strong>Effort:</strong> ~5 hours · <strong>Cost:</strong> $0
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot" style="border-color:var(--text-muted)"></div>
+        <div class="roadmap-item-header">
+          <span class="badge" style="background:rgba(100,116,139,0.15);color:var(--text-muted)">P7 · Wrap Up</span>
+          <span class="roadmap-title">EDA Completion + Documentation + Demo</span>
+        </div>
+        <div class="roadmap-desc">
+          Extend EDA to merged 53K dataset. Final report. Demo recording. KPI impact analysis. All team members contribute.
+          <br><strong>Owner:</strong> All Members · <strong>Effort:</strong> ~8 hours total · <strong>Cost:</strong> $0
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ TAB: BUDGET ════════════ -->
+  <section class="tab-panel" id="panel-budget">
+    <h2 style="margin-bottom:0.5rem;">Azure Credit Budget — $100</h2>
+    <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:1rem;">DEPI-provided credits. Projected spend based on 2-month operational window.</p>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+        <span style="font-size:0.8rem; font-weight:600;">Projected Spend</span>
+        <span style="font-size:0.8rem; color:var(--accent-green); font-weight:600;">$27.14 / $100.00</span>
+      </div>
+      <div class="budget-bar-outer">
+        <div class="budget-bar-fill" style="width:27.14%">$27.14</div>
+        <div class="budget-remaining">$72.86 remaining</div>
+      </div>
+
+      <table class="budget-table">
+        <thead><tr><th>Item</th><th>Monthly</th><th>2-Mo Total</th></tr></thead>
+        <tbody>
+          <tr><td>Azure App Service B1 (1.75GB RAM)</td><td>$13.14</td><td style="color:var(--accent-amber)">$26.28</td></tr>
+          <tr><td>Gemini Flash Lite API (~1M tok/mo)</td><td>~$0.15</td><td>$0.30</td></tr>
+          <tr><td>Pinecone Free Tier</td><td>$0</td><td style="color:var(--accent-green)">$0</td></tr>
+          <tr><td>MLflow (local file-based)</td><td>$0</td><td style="color:var(--accent-green)">$0</td></tr>
+          <tr><td>RAGAS eval batch (~2K judge calls)</td><td>—</td><td>$0.50</td></tr>
+          <tr><td>Azure Key Vault (optional)</td><td>~$0.03</td><td>$0.06</td></tr>
+          <tr style="font-weight:700; border-top:2px solid var(--border-glow);">
+            <td>Total</td><td></td><td style="color:var(--accent-green)">~$27.14</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:1rem;">
+      <h3 style="margin-bottom:0.6rem; color:var(--accent-green);">💡 Budget Optimization Notes</h3>
+      <ul style="font-size:0.82rem; color:var(--text-secondary); padding-left:1.2rem; line-height:1.8;">
+        <li>LLM inference is <strong>API-based</strong> (Gemini) — no GPU compute needed on Azure. Eliminates OOM risk entirely.</li>
+        <li>Embeddings are computed <strong>server-side by Pinecone</strong> during search/upsert — no local model loading.</li>
+        <li><strong>$73 headroom</strong> allows upgrading to S1 if needed, or extending operational window to 4+ months.</li>
+        <li>Biggest risk is not cost but <strong>credit expiration timing</strong> — verify DEPI credit window.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   TEAM MEMBERS CONSTANT
+   ══════════════════════════════════════════════════════════════ */
+const TEAM_MEMBERS = [
+  { id: 'm1',  label: 'Member 1',    role: 'Vector DB Lead',        color: '#3b82f6' },
+  { id: 'm2',  label: 'Member 2',    role: 'Integration Engineer',   color: '#06b6d4' },
+  { id: 'm3',  label: 'Member 3',    role: 'Evaluation Lead',        color: '#10b981' },
+  { id: 'm4',  label: 'Member 4',    role: 'Ground Truth Lead',      color: '#f59e0b' },
+  { id: 'm5',  label: 'Member 5',    role: 'Chunking Specialist',    color: '#8b5cf6' },
+  { id: 'm6',  label: 'Member 6',    role: 'Prompt Specialist',      color: '#ef4444' },
+  { id: 'all', label: 'All Members', role: 'Shared',                 color: '#64748b' },
+];
+
+/* ══════════════════════════════════════════════════════════════
+   DATA MODEL — Ground Truth from Repository Audit
+   ══════════════════════════════════════════════════════════════ */
+const MILESTONES = [
+  {
+    title: "Data Collection & Preprocessing",
+    tasks: [
+      {
+        id: "m1t1", title: "Collect support tickets & FAQ entries (53,842 records upserted to Pinecone)",
+        status: "done", assignee: "m1",
+        objective: "Build the foundational knowledge base for RAG retrieval.",
+        metrics: "Vector count = 53,842. 0% embedding failure. Successful indexing into Pinecone faq namespace.",
+        steps: "1. Query historical support DBs\n2. Sanitize PII\n3. Generate embeddings via Pinecone's integrated llama-text-embed-v2\n4. Batch upsert via Pinecone SDK (96 records/batch)",
+        evidence: "Pinecone console screenshot: 53,842 records confirmed. notebooks/02_pinecone_vector_db.ipynb Cell 6 executes batch upsert."
+      },
+      {
+        id: "m1t2", title: "Text preprocessing: cleaning, tokenisation, noise removal",
+        status: "done", assignee: "m1",
+        objective: "Maximize semantic density per vector for better retrieval accuracy.",
+        metrics: "All text normalized, deduped, whitespace-collapsed. quality_check() flags applied.",
+        steps: "1. Strip HTML & markdown artifacts\n2. Recursive text splitting\n3. Whitespace normalization & abbreviation expansion\n4. Deduplication on lowercased question text",
+        evidence: "preprocessing/hf_faq.ipynb Cell 7: clean_text(). preprocessing/amazon_qa.ipynb Cell 10: identical pipeline."
+      },
+      {
+        id: "m1t3", title: "Metadata structuring (category, difficulty, source fields visible in DB)",
+        status: "done", assignee: "m1",
+        objective: "Enable pre-filtering at vector DB level to reduce search space and prevent cross-domain hallucinations.",
+        metrics: "Every record has non-null category, difficulty, doc_id, source metadata.",
+        steps: "1. Map source columns to standard JSON schemas\n2. Build metadata_tags with category/difficulty/source\n3. Assign difficulty levels by answer word count",
+        evidence: "Pinecone screenshot shows category, difficulty, doc_id, source fields. Both preprocessing notebooks build matching metadata."
+      },
+      {
+        id: "m1t4", title: "EDA report: query topic distributions & response effectiveness analysis",
+        status: "partial", assignee: "m1",
+        objective: "Identify coverage gaps in the knowledge base before tuning.",
+        metrics: "Category/difficulty distributions mapped. Top 10 unanswered query clusters identified.",
+        steps: "1. Load merged 53K dataset\n2. Category & difficulty distributions (both sources)\n3. Bigram analysis & word clouds\n4. Cluster query intents via DBSCAN on embeddings\n5. Map clusters against FAQ coverage",
+        evidence: "notebooks/faq_eda.ipynb exists with charts — but only covers HF FAQ (~3K rows), NOT the merged 53K dataset. No intent clustering implemented.",
+        partialNote: "EDA exists for HF subset only. Missing: merged dataset EDA, intent clustering, unanswered cluster identification. Flagged as last priority."
+      }
+    ]
+  },
+  {
+    title: "Model Development & Evaluation",
+    tasks: [
+      {
+        id: "m2t1", title: "Pinecone index live (llama-text-embed-v2, 1024 dims, faq namespace)",
+        status: "done", assignee: "m1",
+        objective: "Establish scalable, high-throughput vector retrieval for production.",
+        metrics: "Sub-100ms retrieval latency for Top-K=5. AWS us-east-1 region. Dense index type.",
+        steps: "1. Provision Pinecone 'customer-support' index\n2. Configure llama-text-embed-v2 model\n3. Create 'faq' namespace\n4. Enforce 1024-dim constraints",
+        evidence: "Pinecone console: customer-support index, AWS us-east-1, Dense, 1024 dims, llama-text-embed-v2. retriever.py: pc.Index('customer-support')."
+      },
+      {
+        id: "m2t2", title: "Local Milvus vector DB via Docker Compose + Attu UI",
+        status: "done", assignee: "m1",
+        objective: "Provide local development and offline evaluation environment.",
+        metrics: "docker-compose up -d creates Milvus + Attu. Collection schema matches 1024 dims.",
+        steps: "1. docker-compose.yml with milvus:v2.6.15 + attu:v2.6.5\n2. Standalone mode with embedded etcd\n3. Health check on port 9091\n4. Attu GUI on port 3000",
+        evidence: "docker-compose.yml present and functional. Notebook 01 Cell 15 creates faq_qa_rag collection."
+      },
+      {
+        id: "m2t3", title: "HuggingFace RAG pipeline configured and retriever connected",
+        status: "done", assignee: "m2",
+        objective: "Orchestrate end-to-end retriever → generator data flow.",
+        metrics: "rag_answer() returns contextually grounded responses. Batch inference on 10 test questions completes.",
+        steps: "1. Local pipeline: sentence-transformers → Milvus → FLAN-T5\n2. Production pipeline: Pinecone search → LangChain → Gemini Flash Lite\n3. Prompt template with refusal instruction",
+        evidence: "Notebook 01 Cells 20-28: full Milvus+FLAN-T5 pipeline. endpoint/: Pinecone+Gemini production pipeline."
+      },
+      {
+        id: "m2t4", title: "Flask test endpoint working (localhost:5000/test?user_input=)",
+        status: "done", assignee: "m2",
+        objective: "Expose RAG pipeline as REST API for testing and evaluation.",
+        metrics: "/test returns JSON with question, answer, chunks. /stream returns SSE for real-time chat.",
+        steps: "1. Flask app with 3 routes: /, /test, /stream\n2. SSE streaming via generator + text/event-stream\n3. Chat UI with marked.js for markdown rendering",
+        evidence: "endpoint/app.py: all 3 routes implemented. endpoint/templates/index.html: SSE-powered chat UI."
+      },
+      {
+        id: "m2t5", title: "Automated BLEU / ROUGE scoring",
+        status: "todo", assignee: "m3",
+        objective: "Quantify lexical similarity between generated and expected answers.",
+        metrics: "ROUGE-L > 0.45 on golden dataset. Per-question breakdown available.",
+        steps: "1. Create evaluation/evaluate.py\n2. Load golden_dataset.json\n3. Batch-query /test endpoint (or import retriever+llm)\n4. Compute ROUGE-L via rouge-score package\n5. Compute BLEU via nltk.translate.bleu_score\n6. Save results to evaluation/results.json\n7. Add rouge-score>=0.1.2, nltk>=3.9 to pyproject.toml",
+      },
+      {
+        id: "m2t6", title: "RAGAS evaluation (faithfulness, answer relevance, context precision)",
+        status: "todo", assignee: "m3",
+        objective: "Quantify semantic validity: is the answer faithful to context? Is it relevant to the question?",
+        metrics: "RAGAS Context Precision > 0.8. Answer Relevance > 0.8. Faithfulness > 0.7.",
+        steps: "1. Create evaluation/ragas_eval.py\n2. Use ragas library with Gemini as LLM-judge\n3. Note: using Gemini to judge Gemini introduces circular bias — document this limitation\n4. Compute faithfulness, answer_relevance, context_precision\n5. Output ragas_results.json\n6. Add ragas>=0.2.0 to pyproject.toml",
+      },
+      {
+        id: "m2t7", title: "Curate golden dataset (Q&A ground-truth pairs)",
+        status: "todo", assignee: "m4",
+        objective: "Create the benchmark that all evaluation metrics are measured against.",
+        metrics: "50-100 Q/A pairs stratified by category. 30+ OOD questions with expected refusal. Format: JSON.",
+        steps: "1. Extract 50-100 representative questions stratified across categories\n2. Use original FAQ answers as ground truth (extractive approach — less work)\n3. Add 30+ out-of-domain questions with expected answer = 'I don\\'t have that information.'\n4. Save as evaluation/golden_dataset.json\n5. Schema: [{question, expected_answer, category, is_ood}]",
+      },
+      {
+        id: "m2t8", title: "Experiment with chunk sizes & overlap strategies",
+        status: "todo", assignee: "m5",
+        objective: "Optimize retrieval boundaries — find the chunk size that maximizes recall without overwhelming the LLM context.",
+        metrics: "Benchmarked 256, 512, 1024 token chunks. Retrieval recall measured for each. Latency vs. recall curve documented.",
+        steps: "1. Create evaluation/chunking_experiment.py\n2. Implement recursive text splitting with configurable chunk_size & overlap\n3. For each config: re-embed, re-upsert to test namespace, evaluate retrieval quality\n4. Note: since FAQ entries are short (avg ~40 words), chunking mainly applies to long-form docs\n5. Document findings in evaluation report",
+      },
+      {
+        id: "m2t9", title: "Prompt engineering & hyperparameter tuning (temperature, top-p)",
+        status: "partial", assignee: "m6",
+        objective: "Fine-tune generation behavior to eliminate hallucinations and optimize output quality.",
+        metrics: "0% hallucination rate on curated OOD test set. Optimal temperature identified. Best prompt variant selected.",
+        steps: "1. Define 3-5 prompt variants (refusal-heavy, concise, verbose, chain-of-thought)\n2. Add temperature/top_p/max_tokens params to ChatGoogleGenerativeAI init in llm.py\n3. Benchmark combos against golden dataset\n4. Track results in MLflow or structured CSV",
+        evidence: "config.py has one prompt template with refusal instruction. llm.py has NO temperature/top_p config. No A/B framework.",
+        partialNote: "One functional prompt exists with basic refusal instruction. Missing: systematic tuning, multiple variants, hyperparameter sweeps."
+      },
+      {
+        id: "m2t10", title: "Write model evaluation report",
+        status: "todo", assignee: "m3",
+        objective: "Document all evaluation results, methodology, and findings.",
+        metrics: "Report covers BLEU, ROUGE, RAGAS metrics. Includes per-category breakdown. Documents limitations.",
+        steps: "1. Compile BLEU/ROUGE results from evaluate.py\n2. Compile RAGAS results from ragas_eval.py\n3. Add chunking experiment findings\n4. Add prompt tuning comparison table\n5. Write as Markdown in docs/evaluation_report.md",
+      }
+    ]
+  },
+  {
+    title: "Azure Deployment",
+    tasks: [
+      {
+        id: "m3t1", title: "Deploy RAG service via Azure App Service",
+        status: "todo", assignee: "m2",
+        objective: "Transition from localhost to scalable cloud environment.",
+        metrics: "Successful response rate > 95% under 10 concurrent users. Cold start < 30s.",
+        steps: "1. Create Dockerfile:\n   FROM python:3.12-slim\n   COPY endpoint/ /app → WORKDIR /app\n   RUN pip install uv && uv sync\n   CMD [\"gunicorn\", \"-w\", \"2\", \"--threads\", \"2\", \"-b\", \"0.0.0.0:8000\", \"app:app\"]\n2. az webapp create --name rag-chatbot --plan B1\n3. Configure App Settings for env vars\n4. Push container to Azure Container Registry or deploy via GitHub Actions",
+      },
+      {
+        id: "m3t2", title: "Expose Flask REST API publicly (beyond localhost)",
+        status: "todo", assignee: "m2",
+        objective: "Make the chatbot accessible from the internet for demo and integration.",
+        metrics: "Public URL responds to /test and /stream endpoints. HTTPS enforced.",
+        steps: "1. Azure App Service provides public URL automatically\n2. Enable HTTPS-only in App Service settings\n3. Configure custom domain if needed\n4. Test with curl from external network",
+      },
+      {
+        id: "m3t3", title: "Secure endpoints with Azure AD or API keys",
+        status: "todo", assignee: "m2",
+        objective: "Prevent unauthorized access and protect compute resources.",
+        metrics: "100% of unauthorized requests return 401/403. Zero API keys in source control.",
+        steps: "1. Implement X-API-Key header middleware in Flask\n2. Store CHATBOT_API_KEY in Azure App Settings\n3. Move Pinecone/Gemini keys to App Settings (or Key Vault)\n4. Configure CORS: restrict to known frontend origins\n5. Add rate limiting (flask-limiter) to prevent abuse",
+      },
+      {
+        id: "m3t4", title: "Write integration & security documentation",
+        status: "todo", assignee: "m2",
+        objective: "Document deployment architecture, security measures, and API usage.",
+        metrics: "Covers deployment steps, API key management, CORS policy, rate limits.",
+        steps: "1. Write docs/deployment.md: step-by-step Azure deployment guide\n2. Write docs/api_reference.md: endpoint specs, auth headers, error codes\n3. Include architecture diagram\n4. Add troubleshooting section",
+      }
+    ]
+  },
+  {
+    title: "MLOps & Monitoring",
+    tasks: [
+      {
+        id: "m4t1", title: "MLflow experiment tracking set up for RAG variations",
+        status: "todo", assignee: "m6",
+        objective: "Maintain an immutable ledger of model iterations and hyperparameter experiments.",
+        metrics: "All prompt/temperature/top_k changes logged automatically. Metrics (ROUGE, RAGAS) tracked per experiment.",
+        steps: "1. Add mlflow>=2.15 to pyproject.toml\n2. Use file-based tracking: mlflow.set_tracking_uri('file:///app/mlruns')\n3. Integrate into evaluation scripts (NOT serving path — avoid latency)\n4. Log: prompt template, temperature, top_k, ROUGE-L, RAGAS scores",
+      },
+      {
+        id: "m4t2", title: "Query/answer logging via user_input endpoint",
+        status: "todo", assignee: "m6",
+        objective: "Capture real-time query/response telemetry for monitoring and retraining.",
+        metrics: "Every request logged with: timestamp, user_input, answer, retriever_scores, latency_ms. Non-blocking I/O.",
+        steps: "1. Add logging middleware to app.py\n2. Use Python logging + RotatingFileHandler → logs/queries.jsonl\n3. One JSON line per request (append-only)\n4. Measure latency with time.perf_counter()\n5. Ensure logging doesn't block inference thread",
+      },
+      {
+        id: "m4t3", title: "Schedule embeddings refresh from accumulated logs",
+        status: "todo", assignee: "m1",
+        objective: "Prevent data drift by syncing vector DB with upstream knowledge base updates.",
+        metrics: "Zero downtime during updates. Zero duplicate vectors. Delta-only upserts.",
+        steps: "1. Create scripts/refresh_embeddings.py\n2. Compute SHA-256 hash per record for dedup\n3. Compare hashes to find delta changes\n4. Upsert only changed/new records to Pinecone\n5. Schedule via Azure WebJob CRON or GitHub Actions cron trigger\n6. Pinecone upsert is idempotent by _id — zero downtime guaranteed",
+      },
+      {
+        id: "m4t4", title: "Build monitoring dashboard (accuracy, latency, user satisfaction)",
+        status: "todo", assignee: "m6",
+        objective: "Provide real-time visibility into system health and response quality.",
+        metrics: "Dashboard shows: avg latency, error rate, refusal rate, daily query volume.",
+        steps: "1. Parse logs/queries.jsonl to compute metrics\n2. Build simple HTML dashboard (or extend this one)\n3. Add latency histogram, error rate trend, query volume chart\n4. Optional: user satisfaction via thumbs up/down in chat UI",
+      },
+      {
+        id: "m4t5", title: "Document retraining pipeline",
+        status: "todo", assignee: "m1",
+        objective: "Document the end-to-end process for updating the knowledge base and re-evaluating.",
+        metrics: "Step-by-step runbook covering: data refresh → re-embed → evaluate → deploy.",
+        steps: "1. Write docs/retraining_pipeline.md\n2. Cover: data ingestion, preprocessing, embedding generation\n3. Cover: Pinecone upsert with dedup, evaluation against golden dataset\n4. Include rollback procedure if quality degrades",
+      }
+    ]
+  },
+  {
+    title: "Final Documentation & Presentation",
+    tasks: [
+      {
+        id: "m5t1", title: "Final report: architecture, challenges, business impact",
+        status: "todo", assignee: "all",
+        objective: "Comprehensive documentation of the entire project for DEPI submission.",
+        metrics: "Covers all milestones, architectural decisions, evaluation results, deployment setup.",
+        steps: "1. Sections: Executive Summary, Problem Statement, Architecture, Data Pipeline\n2. Sections: Model Development, Evaluation Results, Deployment, MLOps\n3. Sections: Challenges & Solutions, Business Impact, Future Work\n4. Include architecture diagrams and evaluation charts",
+      },
+      {
+        id: "m5t2", title: "Demo presentation",
+        status: "todo", assignee: "all",
+        objective: "Live demonstration of the RAG chatbot for stakeholders.",
+        metrics: "Working demo of: chat UI, real-time responses, evaluation metrics, monitoring dashboard.",
+        steps: "1. Prepare demo script with 5-10 representative queries\n2. Show live chat UI with SSE streaming\n3. Show evaluation metrics dashboard\n4. Show Azure deployment and monitoring\n5. Record backup video in case of connectivity issues",
+      },
+      {
+        id: "m5t3", title: "Business KPI impact analysis",
+        status: "todo", assignee: "all",
+        objective: "Translate technical infrastructure into measurable business value.",
+        metrics: "Projected reduction in Average Handle Time (AHT). Cost savings projection.",
+        steps: "1. Calculate baseline: average time per support ticket without RAG\n2. Measure: average response time with RAG chatbot\n3. Project: reduction in support staff workload\n4. Calculate ROI: (time saved × agent hourly cost) vs. system operational cost\n5. Present as executive-friendly charts",
+      }
+    ]
+  }
+];
+
+/* ══════════════════════════════════════════════════════════════
+   STATE MANAGEMENT (localStorage)
+   ══════════════════════════════════════════════════════════════ */
+const STORAGE_KEY       = 'rag_dashboard_v2';
+const ASSIGNMENT_KEY    = 'rag_assignments_v1';
+
+function loadState() {
+  try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : {}; } catch { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
+}
+function loadAssignments() {
+  try { const r = localStorage.getItem(ASSIGNMENT_KEY); return r ? JSON.parse(r) : {}; } catch { return {}; }
+}
+function saveAssignments(a) {
+  try { localStorage.setItem(ASSIGNMENT_KEY, JSON.stringify(a)); } catch {}
+}
+
+const state       = loadState();
+const assignments = loadAssignments();
+
+/* Helper: get effective assignee (persisted override > data default) */
+function getAssignee(task) {
+  return assignments[task.id] !== undefined ? assignments[task.id] : (task.assignee || '');
+}
+
+function getTaskState(id, originalStatus) {
+  if (state[id] !== undefined) return state[id];
+  return originalStatus === 'done';
+}
+
+function toggleTask(id, originalStatus) {
+  const current = getTaskState(id, originalStatus);
+  state[id] = !current;
+  saveState(state);
+  renderMilestones();
+  updateStats();
+}
+
+/* ── Assign / unassign ───────────────────────────────────────── */
+function assignTask(taskId, memberId) {
+  if (memberId === '') {
+    delete assignments[taskId];
+  } else {
+    assignments[taskId] = memberId;
+  }
+  saveAssignments(assignments);
+  closeAllDropdowns();
+  renderMilestones();
+  updateStats();
+  renderTeamTab();
+}
+
+/* ── Dropdown helpers ────────────────────────────────────────── */
+let _openDropdownId = null;
+
+function openDropdown(taskId, event) {
+  event.stopPropagation();
+  if (_openDropdownId === taskId) {
+    closeAllDropdowns();
+    return;
+  }
+  closeAllDropdowns();
+  _openDropdownId = taskId;
+  const dd = document.getElementById('dd-' + taskId);
+  if (dd) {
+    dd.classList.add('open');
+  }
+}
+
+function closeAllDropdowns() {
+  document.querySelectorAll('.assign-dropdown.open').forEach(d => d.classList.remove('open'));
+  _openDropdownId = null;
+}
+
+/* Close dropdowns when clicking outside */
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.assignee-chip') && !e.target.closest('.assign-btn') && !e.target.closest('.assign-dropdown')) {
+    closeAllDropdowns();
+  }
+});
+
+/* ══════════════════════════════════════════════════════════════
+   HELPER FUNCTIONS
+   ══════════════════════════════════════════════════════════════ */
+function escHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function getMemberById(id) {
+  return TEAM_MEMBERS.find(m => m.id === id) || null;
+}
+
+function buildDropdownHtml(taskId) {
+  const items = TEAM_MEMBERS.map(m => `
+    <div class="assign-dropdown-item" onclick="event.stopPropagation(); assignTask('${taskId}', '${m.id}')">
+      <div class="assign-dropdown-dot" style="background:${m.color}"></div>
+      <div>
+        <div class="assign-dropdown-label">${escHtml(m.label)}</div>
+        <div class="assign-dropdown-role">${escHtml(m.role)}</div>
+      </div>
+    </div>`).join('');
+
+  return `
+    <div class="assign-dropdown" id="dd-${taskId}">
+      ${items}
+      <div class="assign-dropdown-unassign" onclick="event.stopPropagation(); assignTask('${taskId}', '')">
+        ✕ Unassign
+      </div>
+    </div>`;
+}
+
+function buildAssigneeBadgeHtml(taskId, assigneeId) {
+  const member = getMemberById(assigneeId);
+  if (member) {
+    return `
+      <div style="position:relative; display:inline-flex;">
+        <div class="assignee-chip"
+             style="background:${member.color}22; border-color:${member.color}55; color:${member.color};"
+             onclick="openDropdown('${taskId}', event)">
+          <div class="assignee-chip-dot" style="background:${member.color}"></div>
+          <span>${escHtml(member.label)}</span>
+          <span class="assignee-chip-role">· ${escHtml(member.role)}</span>
+        </div>
+        ${buildDropdownHtml(taskId)}
+      </div>`;
+  } else {
+    return `
+      <div style="position:relative; display:inline-flex;">
+        <button class="assign-btn" onclick="openDropdown('${taskId}', event)">+ Assign</button>
+        ${buildDropdownHtml(taskId)}
+      </div>`;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER MILESTONES
+   ══════════════════════════════════════════════════════════════ */
+function renderMilestones() {
+  const container = document.getElementById('milestonesContainer');
+  container.innerHTML = MILESTONES.map((m, mi) => {
+    const doneCount = m.tasks.filter(t => getTaskState(t.id, t.status)).length;
+    const totalCount = m.tasks.length;
+    const pct = Math.round((doneCount / totalCount) * 100);
+
+    let barColor = 'var(--accent-blue)';
+    if (doneCount === totalCount) barColor = 'var(--accent-green)';
+    else if (doneCount === 0) barColor = 'var(--text-muted)';
+
+    const tasksHtml = m.tasks.map(t => {
+      const isDone    = getTaskState(t.id, t.status);
+      const isPartial = !isDone && t.status === 'partial';
+      const assigneeId = getAssignee(t);
+
+      let statusBadge = '';
+      if (isDone)       statusBadge = '<span class="badge badge-done">Done</span>';
+      else if (isPartial) statusBadge = '<span class="badge badge-progress">Partial</span>';
+      else               statusBadge = '<span class="badge badge-todo">Todo</span>';
+
+      let checkClass = 'task-check';
+      if (isDone)       checkClass += ' checked';
+      else if (isPartial) checkClass += ' partial';
+
+      const assigneeBadge = buildAssigneeBadgeHtml(t.id, assigneeId);
+
+      let detailHtml = '<div class="task-details">';
+      if (t.objective) {
+        detailHtml += `<div class="detail-section"><div class="detail-label">Objective</div><div class="detail-text">${escHtml(t.objective)}</div></div>`;
+      }
+      if (t.metrics) {
+        detailHtml += `<div class="detail-section"><div class="detail-label">Success Metrics</div><div class="detail-text">${escHtml(t.metrics)}</div></div>`;
+      }
+      if (t.steps) {
+        const stepsFormatted = t.steps.split('\n').map(s => `<li>${escHtml(s.replace(/^\d+\.\s*/, ''))}</li>`).join('');
+        detailHtml += `<div class="detail-section"><div class="detail-label">Implementation Steps</div><div class="detail-text"><ol>${stepsFormatted}</ol></div></div>`;
+      }
+      if (t.evidence) {
+        detailHtml += `<div class="detail-section"><div class="detail-label">Code Evidence</div><div class="detail-text" style="color:var(--accent-green)">${escHtml(t.evidence)}</div></div>`;
+      }
+      if (t.partialNote) {
+        detailHtml += `<div class="detail-section"><div class="detail-label">What's Missing</div><div class="detail-text" style="color:var(--accent-amber)">${escHtml(t.partialNote)}</div></div>`;
+      }
+      detailHtml += '</div>';
+
+      return `
+        <div class="task-row ${isDone ? 'done' : ''}" data-task-id="${t.id}">
+          <div class="${checkClass}" onclick="event.stopPropagation(); toggleTask('${t.id}', '${t.status}')"></div>
+          <div class="task-content">
+            <div class="task-title-row">
+              <span class="task-title">${escHtml(t.title)}</span>
+              ${statusBadge}
+              ${assigneeBadge}
+            </div>
+            ${detailHtml}
+          </div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="milestone${mi < 2 ? ' open' : ''}" data-milestone="${mi}">
+        <div class="milestone-header" onclick="toggleMilestone(${mi})">
+          <div class="milestone-left">
+            <div class="milestone-num">M${mi + 1}</div>
+            <h3 style="font-size:0.9rem;">${escHtml(m.title)}</h3>
+          </div>
+          <div class="milestone-right">
+            <div class="milestone-progress-bar">
+              <div class="milestone-progress-fill" style="width:${pct}%; background:${barColor}"></div>
+            </div>
+            <span class="milestone-count">${doneCount}/${totalCount}</span>
+            <svg class="milestone-chevron" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="milestone-body">${tasksHtml}</div>
+      </div>`;
+  }).join('');
+
+  /* Re-attach click handlers for task expand/collapse */
+  document.querySelectorAll('.task-row').forEach(row => {
+    row.addEventListener('click', function(e) {
+      if (e.target.closest('.task-check')) return;
+      if (e.target.closest('.assignee-chip') || e.target.closest('.assign-btn') || e.target.closest('.assign-dropdown')) return;
+      this.classList.toggle('expanded');
+    });
+  });
+}
+
+function toggleMilestone(idx) {
+  const el = document.querySelector(`[data-milestone="${idx}"]`);
+  if (el) el.classList.toggle('open');
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER TEAM TAB
+   ══════════════════════════════════════════════════════════════ */
+function renderTeamTab() {
+  const grid = document.getElementById('teamGrid');
+  if (!grid) return;
+
+  /* Build task map per member */
+  const tasksByMember = {};
+  TEAM_MEMBERS.forEach(m => { tasksByMember[m.id] = []; });
+
+  MILESTONES.forEach(m => {
+    m.tasks.forEach(t => {
+      const aId = getAssignee(t);
+      if (aId && tasksByMember[aId] !== undefined) {
+        tasksByMember[aId].push(t.title);
+      }
+    });
+  });
+
+  grid.innerHTML = TEAM_MEMBERS.map(m => {
+    const tasks = tasksByMember[m.id] || [];
+    const tasksHtml = tasks.length > 0
+      ? tasks.map(title => `<li>${escHtml(title)}</li>`).join('')
+      : `<li class="team-tasks-empty" style="list-style:none;">No tasks assigned yet</li>`;
+
+    return `
+      <div class="card team-card" style="--team-color:${m.color}">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${m.color};border-radius:var(--radius-lg) var(--radius-lg) 0 0;"></div>
+        <div class="team-role" style="color:${m.color}; margin-top:4px;">${escHtml(m.label)}</div>
+        <div class="team-name">${escHtml(m.role)}</div>
+        <ul class="team-tasks" style="list-style:none;">${tasksHtml}</ul>
+      </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STATS & PROGRESS
+   ══════════════════════════════════════════════════════════════ */
+function updateStats() {
+  let done = 0, partial = 0, assigned = 0, todo = 0, total = 0;
+
+  MILESTONES.forEach(m => {
+    m.tasks.forEach(t => {
+      total++;
+      const isDone = getTaskState(t.id, t.status);
+      const aId    = getAssignee(t);
+      if (isDone)           { done++; }
+      else if (t.status === 'partial') { partial++; }
+      else                  { todo++; }
+      if (aId !== '')       { assigned++; }
+    });
+  });
+
+  document.getElementById('statDone').textContent     = done;
+  document.getElementById('statPartial').textContent  = partial;
+  document.getElementById('statAssigned').textContent = assigned;
+  document.getElementById('statTodo').textContent     = todo;
+
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progressPct').textContent = pct + '%';
+
+  const ring = document.getElementById('progressRing');
+  const circumference = 2 * Math.PI * 48;
+  const offset = circumference - (pct / 100) * circumference;
+  ring.style.strokeDashoffset = offset;
+
+  if (pct >= 80)      ring.style.stroke = 'var(--accent-green)';
+  else if (pct >= 40) ring.style.stroke = 'var(--accent-blue)';
+  else                ring.style.stroke = 'var(--accent-amber)';
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TABS
+   ══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('panel-' + this.dataset.tab).classList.add('active');
+  });
+});
+
+/* ══════════════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════════════ */
+renderMilestones();
+updateStats();
+renderTeamTab();
+</script>
+</body>
+</html>
