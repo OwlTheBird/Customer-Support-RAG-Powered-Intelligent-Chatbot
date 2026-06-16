@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response, jsonify
+from flask import Flask, render_template, request, jsonify  # , Response
 from llm import chain, extract_text
 from retriever import retrieve, build_context
 from flask_limiter import Limiter
@@ -21,30 +21,13 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/stream")
-@limiter.limit("1 per minute")
-def stream():
-    user_input = request.args.get("user_input")
+@app.route("/ask", methods=["POST"])
+@limiter.limit("5 per minute")
+def ask():
+    user_input = request.form.get("user_input")
 
-    def generate():
-        chunks = retrieve(user_input, top_k=2)
-        context = build_context(chunks)
-
-        for chunk in chain.stream({"context": context, "question": user_input}):
-            text = extract_text(chunk.content)
-
-            if text:
-                safe = text.replace("\n", "\\n")
-                yield f"data: {safe}\n\n"
-
-    return Response(
-        generate(), mimetype="text/event-stream"
-    )  # Server‑Sent Events (SSE)
-
-
-@app.route("/test")
-def test():
-    user_input = request.args.get("user_input")
+    if not user_input:
+        return jsonify({"error": "Bad Request", "message": "No input provided"}), 400
 
     chunks = retrieve(user_input, top_k=2)
     context = build_context(chunks)
@@ -52,6 +35,7 @@ def test():
     answer = extract_text(
         chain.invoke({"context": context, "question": user_input}).content
     )
+
     return jsonify(
         {
             "question": user_input,
@@ -59,3 +43,25 @@ def test():
             "chunks": chunks,
         }
     )
+
+
+# * It drains the free quota
+# @app.route("/stream")
+# @limiter.limit("1 per minute")
+# def stream():
+#     user_input = request.args.get("user_input")
+
+#     def generate():
+#         chunks = retrieve(user_input, top_k=2)
+#         context = build_context(chunks)
+
+#         for chunk in chain.stream({"context": context, "question": user_input}):
+#             text = extract_text(chunk.content)
+
+#             if text:
+#                 safe = text.replace("\n", "\\n")
+#                 yield f"data: {safe}\n\n"
+
+#     return Response(
+#         generate(), mimetype="text/event-stream"
+#     )  # Server‑Sent Events (SSE)

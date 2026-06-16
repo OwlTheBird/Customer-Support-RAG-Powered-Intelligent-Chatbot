@@ -247,6 +247,8 @@
       const output = document.getElementById("output");
       const outputWrap = document.getElementById("outputWrap");
       const askBtn = document.getElementById("askBtn");
+
+      /*
       let cursor = null;
 
       form.addEventListener("submit", function (e) {
@@ -279,6 +281,41 @@
           if (cursor) cursor.remove();
           askBtn.disabled = false;
         };
+      });
+      */
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        // Set up a loading state
+        output.innerHTML = "<span class='cursor'></span>";
+        outputWrap.classList.add("visible");
+        askBtn.disabled = true;
+
+        try {
+          // Make a standard POST request to the new /ask endpoint
+          const response = await fetch("/ask", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const data = await response.json();
+
+          // Parse the markdown and display the final text all at once
+          output.innerHTML = marked.parse(data.answer);
+        } catch (error) {
+          console.error("Fetch error:", error);
+          output.innerHTML =
+            "<p>Sorry, an error occurred. Please try again.</p>";
+        } finally {
+          // Re-enable the button once the response is received
+          askBtn.disabled = false;
+        }
       });
     </script>
   </body>

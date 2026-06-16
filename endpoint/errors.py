@@ -12,8 +12,17 @@ def register_error_handlers(app):
             }
         ), 429
 
-    # @app.errorhandler(404)
-    # def not_found(e):
-    #     return jsonify(
-    #         {"error": "Not Found", "message": "The requested resource was not found."}
-    #     ), 404
+    @app.errorhandler(404)
+    def not_found(e):
+        return jsonify(
+            {"error": "Not Found", "message": "The requested endpoint does not exist."}
+        ), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return jsonify(
+            {
+                "error": "Internal Server Error",
+                "message": "Something went wrong on our end while processing your request. Please try again later.",
+            }
+        ), 500
