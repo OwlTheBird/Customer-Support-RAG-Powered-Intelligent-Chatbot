@@ -10,7 +10,7 @@ from src.db import init_db, log_query, get_recent_logs, get_metrics, set_rating
 from src.config import AI_MODEL
 
 app = Flask(__name__)
-# CORS(app, resources={r"/api/*": {"origins": "*"}})
+# CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173/"}})
 limiter = Limiter(
     get_remote_address,
     app=app,
