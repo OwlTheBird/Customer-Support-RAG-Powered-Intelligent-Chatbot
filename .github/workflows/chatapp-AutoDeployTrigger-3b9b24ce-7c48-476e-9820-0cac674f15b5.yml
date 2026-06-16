@@ -1,8 +1,6 @@
 name: Trigger auto deployment for chatapp
 
-# When this action will be executed
 on:
-  # Automatically trigger it when detected changes in repo
   push:
     branches: 
       [ deploy ]
