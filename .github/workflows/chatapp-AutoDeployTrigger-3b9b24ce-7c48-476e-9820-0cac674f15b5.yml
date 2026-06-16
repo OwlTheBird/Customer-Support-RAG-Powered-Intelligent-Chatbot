@@ -1,0 +1,47 @@
+name: Trigger auto deployment for chatapp
+
+on:
+  push:
+    branches: 
+      [ deploy ]
+    paths:
+    - '**'
+    - '.github/workflows/chatapp-AutoDeployTrigger-3b9b24ce-7c48-476e-9820-0cac674f15b5.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CHATAPP_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.CHATAPP_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.CHATAPP_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}/application
+          _dockerfilePathKey_: _dockerfilePath_
+          _targetLabelKey_: _targetLabel_
+          registryUrl: chatappcontainer.azurecr.io
+          registryUsername: ${{ secrets.CHATAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CHATAPP_REGISTRY_PASSWORD }}
+          containerAppName: chatapp
+          resourceGroup: depi-r4_group
+          imageToBuild: chatappcontainer.azurecr.io/chatapp:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
