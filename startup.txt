@@ -1,2 +1,0 @@
-pip install -r application/requirements.txt
-gunicorn --bind=0.0.0.0 --timeout 600 --chdir application app:app

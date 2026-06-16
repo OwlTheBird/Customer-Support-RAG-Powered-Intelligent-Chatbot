@@ -1,0 +1,799 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2026-06-13T20:31:23.577449Z",
+    "source": "MakTek/Customer_support_faqs_dataset",
+    "total_entries": 111,
+    "in_domain_count": 75,
+    "ood_count": 36,
+    "categories": [
+      "account_management",
+      "general_inquiries",
+      "orders_and_shipping",
+      "out_of_domain",
+      "payments_and_billing",
+      "product_information",
+      "returns_and_refunds",
+      "technical_support"
+    ]
+  },
+  "entries": [
+    {
+      "id": "GD-001",
+      "question": "Are my personal and payment details secure?",
+      "expected_answer": "Yes, we take the security of your personal and payment details seriously. We use industry-standard encryption and follow strict security protocols to ensure your information is protected.",
+      "category": "payments_and_billing",
+      "is_ood": false
+    },
+    {
+      "id": "GD-002",
+      "question": "Can I add a gift message to my order?",
+      "expected_answer": "Yes, you can add a gift message during the checkout process. There is usually a section where you can enter your personalized message.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-003",
+      "question": "Can I cancel my order?",
+      "expected_answer": "You can cancel your order if it has not been shipped yet. Please contact our customer support team with your order details, and we will assist you with the cancellation process.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-004",
+      "question": "Can I change my order after it has been placed?",
+      "expected_answer": "If you need to change your order, please contact our customer support team as soon as possible. We will do our best to accommodate your request if the order has not been processed yet.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-005",
+      "question": "Can I change my shipping address after placing an order?",
+      "expected_answer": "If you need to change your shipping address, please contact our customer support team as soon as possible. We will do our best to update the address if the order has not been shipped yet.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-006",
+      "question": "Can I change or cancel an item in my order?",
+      "expected_answer": "If you need to change or cancel an item in your order, please contact our customer support team as soon as possible. We will assist you with the necessary steps.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-007",
+      "question": "Can I order a product as a gift?",
+      "expected_answer": "Yes, you can order a product as a gift and have it shipped directly to the recipient. During the checkout process, you can enter the recipient's shipping address.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-008",
+      "question": "Can I order a product for delivery to a different country?",
+      "expected_answer": "Yes, we offer international shipping to select countries. Please review the available shipping destinations during checkout or contact our customer support for assistance.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-009",
+      "question": "Can I order a product if it is listed as 'backordered'?",
+      "expected_answer": "Products listed as 'backordered' are temporarily out of stock but can still be ordered. Your order will be fulfilled once the product is restocked.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-010",
+      "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+      "expected_answer": "If a product is listed as 'coming soon' and available for pre-order, you can place an order to secure your item before it becomes available.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-011",
+      "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+      "expected_answer": "If a product is listed as 'coming soon' but not available for pre-order, you will need to wait until it is officially released and becomes available for purchase.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-012",
+      "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+      "expected_answer": "If a product is listed as 'coming soon' and available for pre-order, you can place an order to secure your item before it becomes available.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-013",
+      "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+      "expected_answer": "If a product is listed as 'discontinued' but still visible on the website, it may be an error. Please contact our customer support team for clarification.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-014",
+      "question": "Can I order a product if it is listed as 'on hold'?",
+      "expected_answer": "If a product is listed as 'on hold,' it is temporarily unavailable for purchase. Please check back later or sign up for notifications when it becomes available.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-015",
+      "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+      "expected_answer": "If a product is listed as 'out of stock' but available for backorder, you can place an order to secure your item. The product will be shipped once it becomes available.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-016",
+      "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+      "expected_answer": "If a product is available for pre-order, you can place an order to secure your item. The product will be shipped once it becomes available.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-017",
+      "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+      "expected_answer": "If a product is listed as 'pre-order' and available for backorder, you can place an order to secure your item. The product will be shipped once it becomes available.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-018",
+      "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+      "expected_answer": "If a product is listed as 'sold out' but available for pre-order, you can place an order to secure your item. The product will be shipped once it becomes available.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-019",
+      "question": "Can I order a product if it is listed as 'sold out'?",
+      "expected_answer": "If a product is listed as 'sold out,' it is currently unavailable for purchase. Please check back later or sign up for notifications when it becomes available again.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-020",
+      "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+      "expected_answer": "If a product is listed as 'temporarily unavailable,' it is out of stock but may be restocked in the future. Please check back later or sign up for notifications.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-021",
+      "question": "Can I order a product that is discontinued?",
+      "expected_answer": "Discontinued products are no longer available for purchase. We recommend exploring alternative products on our website.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-022",
+      "question": "Can I order a product that is labeled as 'limited edition'?",
+      "expected_answer": "'Limited edition' products may have restricted availability. We recommend placing an order as soon as possible to secure your item.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-023",
+      "question": "Can I order a product that is listed as 'coming soon'?",
+      "expected_answer": "Products listed as 'coming soon' are not available for immediate purchase. Please sign up for notifications to be informed when the product becomes available.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-024",
+      "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+      "expected_answer": "Yes, you can place an order with a mix of pre-order and in-stock items. However, please note that the entire order will be shipped once all items are available.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-025",
+      "question": "Can I order a product that is out of stock?",
+      "expected_answer": "If a product is currently out of stock, you will usually see an option to sign up for product notifications. This way, you will be alerted when the product becomes available again.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-026",
+      "question": "Can I order by phone?",
+      "expected_answer": "Unfortunately, we do not accept orders over the phone. Please place your order through our website for a smooth and secure transaction.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-027",
+      "question": "Can I order without creating an account?",
+      "expected_answer": "Yes, you can place an order as a guest without creating an account. However, creating an account offers benefits such as order tracking and easier future purchases.",
+      "category": "account_management",
+      "is_ood": false
+    },
+    {
+      "id": "GD-028",
+      "question": "Can I request a custom order or personalized product?",
+      "expected_answer": "We do not currently offer custom orders or personalized products. Please explore the available products on our website.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-029",
+      "question": "Can I request a product demonstration before making a purchase?",
+      "expected_answer": "We do not currently offer product demonstrations before purchase. However, you can find detailed product descriptions, specifications, and customer reviews on our website.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-030",
+      "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+      "expected_answer": "If a product is listed as 'coming soon' but not available for pre-order, you will need to wait until it is officially released and becomes available for purchase.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-031",
+      "question": "Can I request a product if it is listed as 'discontinued'?",
+      "expected_answer": "Unfortunately, if a product is listed as 'discontinued,' it is no longer available for purchase. We recommend exploring alternative products on our website.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-032",
+      "question": "Can I request a product if it is not currently available in my preferred color?",
+      "expected_answer": "If a product is not available in your preferred color, it may be temporarily out of stock. Please check back later or sign up for color notifications.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-033",
+      "question": "Can I request a product if it is not currently available in my size?",
+      "expected_answer": "If a product is not available in your size, it may be temporarily out of stock. Please check back later or sign up for size notifications.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-034",
+      "question": "Can I request a product if it is not listed on your website?",
+      "expected_answer": "If a product is not listed on our website, it may not be available for purchase. We recommend exploring the available products or contacting our customer support team for further assistance.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-035",
+      "question": "Can I request a product repair or replacement if it is damaged?",
+      "expected_answer": "If you receive a damaged product, please contact our customer support team immediately. We will assist you with the necessary steps for repair or replacement.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-036",
+      "question": "Can I request a product that is currently out of stock to be reserved for me?",
+      "expected_answer": "We do not offer reservations for out-of-stock products. However, you can sign up for product notifications to be alerted when it becomes available again.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-037",
+      "question": "Can I request a product that is currently out of stock to be restocked?",
+      "expected_answer": "We strive to restock popular products whenever possible. Please sign up for product notifications to be informed when the item becomes available again.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-038",
+      "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+      "expected_answer": "Once a limited edition product is sold out, it may not be restocked. Limited edition items are available for a limited time only, so we recommend purchasing them while they are available.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-039",
+      "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+      "expected_answer": "We do not offer reservations for out-of-stock products. However, you can sign up for product notifications to be alerted when the item becomes available again.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-040",
+      "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+      "expected_answer": "We aim to restock popular products whenever possible. Please sign up for product notifications to be alerted when the item becomes available again.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-041",
+      "question": "Can I request a product that is out of stock to be restocked?",
+      "expected_answer": "We strive to restock popular products whenever possible. Please sign up for product notifications to be informed when the item becomes available again.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-042",
+      "question": "Can I request a refund if the price drops after my purchase?",
+      "expected_answer": "If the price of a product drops within 7 days of your purchase, you may be eligible for a price adjustment. Please contact our customer support team with your order details.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-043",
+      "question": "Can I request an invoice for my order?",
+      "expected_answer": "Yes, an invoice is usually included with your order. If you require a separate invoice, please contact our customer support team with your order details.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-044",
+      "question": "Can I return a product if I changed my mind?",
+      "expected_answer": "Yes, you can return a product if you changed your mind. Please ensure the product is in its original condition and packaging, and refer to our return policy for instructions.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-045",
+      "question": "Can I return a product if I no longer have the original packaging?",
+      "expected_answer": "While returning a product in its original packaging is preferred, you can still initiate a return without it. Contact our customer support team for guidance in such cases.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-046",
+      "question": "Can I return a product if I no longer have the original receipt?",
+      "expected_answer": "While a receipt is preferred for returns, we may be able to assist you without it. Please contact our customer support team for further guidance.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-047",
+      "question": "Can I return a product if it was a clearance or final sale item?",
+      "expected_answer": "Clearance or final sale items are typically non-returnable and non-refundable. Please review the product description or contact our customer support team for more information.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-048",
+      "question": "Can I return a product if it was a final sale item?",
+      "expected_answer": "Final sale items are usually non-returnable and non-refundable. Please review the product description or contact our customer support team to confirm the return eligibility for specific items.",
+      "category": "product_information",
+      "is_ood": false
+    },
+    {
+      "id": "GD-049",
+      "question": "Can I return a product if it was damaged due to improper use?",
+      "expected_answer": "Our return policy generally covers products that are defective or damaged upon arrival. Damage due to improper use may not be eligible for a return. Please contact our customer support team for assistance.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-050",
+      "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+      "expected_answer": "If your product was damaged due to mishandling during shipping, please contact our customer support team immediately. We will assist you with the necessary steps for return and replacement.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-051",
+      "question": "Can I return a product if it was damaged during shipping?",
+      "expected_answer": "If your product was damaged during shipping, please contact our customer support team immediately. We will guide you through the return and replacement process.",
+      "category": "orders_and_shipping",
+      "is_ood": false
+    },
+    {
+      "id": "GD-052",
+      "question": "Can I return a product if it was purchased as a gift?",
+      "expected_answer": "Yes, you can return a product purchased as a gift. However, refunds will typically be issued to the original payment method used for the purchase.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-053",
+      "question": "Can I return a product if it was purchased as part of a bundle or set?",
+      "expected_answer": "If a product was purchased as part of a bundle or set, the return policy may vary. Please refer to the specific terms and conditions or contact our customer support team for further guidance.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-054",
+      "question": "Can I return a product if it was purchased during a promotional event?",
+      "expected_answer": "Yes, you can return a product purchased during a promotional event. The refund will be processed based on the amount paid after any applicable discounts.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-055",
+      "question": "Can I return a product if it was purchased during a sale or with a discount?",
+      "expected_answer": "Yes, you can return a product purchased during a sale or with a discount. The refund will be processed based on the amount paid after the discount.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-056",
+      "question": "Can I return a product if it was purchased with a discount code?",
+      "expected_answer": "Yes, you can return a product purchased with a discount code. The refund will be processed based on the amount paid after the discount.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-057",
+      "question": "Can I return a product if it was purchased with a gift card?",
+      "expected_answer": "Yes, you can return a product purchased with a gift card. The refund will be issued in the form of store credit or a new gift card.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-058",
+      "question": "Can I return a product if it was purchased with a promotional gift card?",
+      "expected_answer": "Yes, you can return a product purchased with a promotional gift card. The refund will be issued in the form of store credit or a new gift card.",
+      "category": "returns_and_refunds",
+      "is_ood": false
+    },
+    {
+      "id": "GD-059",
+      "question": "Do you have a loyalty program?",
+      "expected_answer": "Yes, we have a loyalty program where you can earn points for every purchase. These points can be redeemed for discounts on future orders. Please visit our website to learn more and join the program.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-060",
+      "question": "Do you offer a satisfaction guarantee?",
+      "expected_answer": "Yes, we offer a satisfaction guarantee on our products. If you are not satisfied with your purchase, please contact our customer support team for assistance.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-061",
+      "question": "Do you offer bulk or wholesale discounts?",
+      "expected_answer": "Yes, we offer bulk or wholesale discounts for certain products. Please contact our customer support team or visit our Wholesale page for more information and to discuss your specific requirements.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-062",
+      "question": "Do you offer gift wrapping services?",
+      "expected_answer": "Yes, we offer gift wrapping services for an additional fee. During the checkout process, you can select the option to add gift wrapping to your order.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-063",
+      "question": "Do you offer live chat support?",
+      "expected_answer": "Yes, we offer live chat support on our website during our business hours. Look for the chat icon in the bottom right corner to initiate a chat with our customer support team.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-064",
+      "question": "How can I apply for a job at your company?",
+      "expected_answer": "To apply for a job at our company, visit our Careers page, where you can find current job openings and submit your application.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-065",
+      "question": "How can I contact customer support?",
+      "expected_answer": "You can contact our customer support team by phone at [phone number] or by email at [email address]. Our team is available [working hours] to assist you with any inquiries or issues you may have.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-066",
+      "question": "How can I create an account?",
+      "expected_answer": "To create an account, click on the 'Sign Up' button on the top right corner of our website and follow the instructions to complete the registration process.",
+      "category": "account_management",
+      "is_ood": false
+    },
+    {
+      "id": "GD-067",
+      "question": "How can I reset my password?",
+      "expected_answer": "To reset your password, click on the 'Forgot Password' link on the login page and follow the instructions to reset your password.",
+      "category": "account_management",
+      "is_ood": false
+    },
+    {
+      "id": "GD-068",
+      "question": "How do I unsubscribe from your newsletter?",
+      "expected_answer": "To unsubscribe from our newsletter, click on the 'Unsubscribe' link at the bottom of any of our newsletter emails or update your preferences in your account settings.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-069",
+      "question": "How do I update my account information?",
+      "expected_answer": "To update your account information, log in to your account, navigate to the 'Account Settings' section, and make the necessary changes.",
+      "category": "account_management",
+      "is_ood": false
+    },
+    {
+      "id": "GD-070",
+      "question": "What are your business hours?",
+      "expected_answer": "Our business hours are [working hours]. During these hours, our customer support team is available to assist you with any inquiries or issues.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-071",
+      "question": "What is your email newsletter about?",
+      "expected_answer": "Our email newsletter provides updates on new product releases, exclusive offers, and helpful tips related to our products. You can subscribe to our newsletter on our website.",
+      "category": "account_management",
+      "is_ood": false
+    },
+    {
+      "id": "GD-072",
+      "question": "What is your price adjustment policy?",
+      "expected_answer": "If a product you purchased goes on sale within 7 days of your purchase, we offer a one-time price adjustment. Please contact our customer support team with your order details to request the adjustment.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-073",
+      "question": "What is your price matching policy?",
+      "expected_answer": "We have a price matching policy where we will match the price of an identical product found on a competitor's website. Please contact our customer support team with the details of the product and the competitor's offer.",
+      "category": "general_inquiries",
+      "is_ood": false
+    },
+    {
+      "id": "GD-074",
+      "question": "What payment methods do you accept?",
+      "expected_answer": "We accept major credit cards, debit cards, and PayPal as payment methods for online orders.",
+      "category": "payments_and_billing",
+      "is_ood": false
+    },
+    {
+      "id": "GD-075",
+      "question": "What should I do if my discount code is not working?",
+      "expected_answer": "If your discount code is not working, please double-check the terms and conditions associated with the code. If the issue persists, contact our customer support team for assistance.",
+      "category": "technical_support",
+      "is_ood": false
+    },
+    {
+      "id": "OOD-001",
+      "question": "What is the capital of France?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-002",
+      "question": "Who was the first president of the United States?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-003",
+      "question": "In which year did World War II end?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-004",
+      "question": "What is the longest river in the world?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-005",
+      "question": "Which country has the largest population?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-006",
+      "question": "Where are the Pyramids of Giza located?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-007",
+      "question": "What is the speed of light?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-008",
+      "question": "How many planets are in the solar system?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-009",
+      "question": "What is the chemical symbol for gold?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-010",
+      "question": "What is the value of pi to 5 decimal places?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-011",
+      "question": "How do you calculate the area of a circle?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-012",
+      "question": "What is the state of matter of water at room temperature?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-013",
+      "question": "Who won the 2024 Super Bowl?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-014",
+      "question": "Who directed the movie Inception?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-015",
+      "question": "Which actor played Iron Man in the Marvel Cinematic Universe?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-016",
+      "question": "How many World Cup titles has Brazil won?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-017",
+      "question": "Who wrote the play Hamlet?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-018",
+      "question": "What is the name of the lead singer of U2?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-019",
+      "question": "What is the meaning of life?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-020",
+      "question": "Do you think artificial intelligence will replace humans?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-021",
+      "question": "What is your favorite color?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-022",
+      "question": "How do you feel today?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-023",
+      "question": "What is the best movie of all time?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-024",
+      "question": "Do you believe in ghosts?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-025",
+      "question": "How do I file a tax return?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-026",
+      "question": "What are the current mortgage interest rates?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-027",
+      "question": "How can I start a small business in California?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-028",
+      "question": "What is the stock price of Apple today?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-029",
+      "question": "How do I apply for a passport?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-030",
+      "question": "What is the process for registering a trademark?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-031",
+      "question": "What are the symptoms of diabetes?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-032",
+      "question": "How is high blood pressure treated?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-033",
+      "question": "What is the statute of limitations for breach of contract?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-034",
+      "question": "Can you give me medical advice for a sore throat?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-035",
+      "question": "How do I write a legally binding will?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    },
+    {
+      "id": "OOD-036",
+      "question": "What are the side effects of aspirin?",
+      "expected_answer": "I don't have that information.",
+      "category": "out_of_domain",
+      "is_ood": true
+    }
+  ]
+}

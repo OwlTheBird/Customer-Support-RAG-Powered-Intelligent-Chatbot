@@ -1,0 +1,4687 @@
+{
+  "metadata": {
+    "timestamp": "2026-06-13T20:43:49.315764+00:00",
+    "total_configs_tested": 6,
+    "entries_per_config": 75,
+    "notes": [
+      "FAQ entries average ~40 words (~50-60 tokens). Chunking is largely irrelevant for this dataset since each entry fits within any chunk size.",
+      "This experiment simulates chunk size effects by varying top_k: larger chunks → fewer retrieved (top_k=1), smaller chunks → more retrieved (top_k=4).",
+      "Results establish methodology and baselines for future long-form content."
+    ]
+  },
+  "best_configuration": {
+    "config": {
+      "chunk_size": 256,
+      "overlap": 0,
+      "label": "chunk_256_overlap_0"
+    },
+    "recall": 0.9936,
+    "latency": 0.2665
+  },
+  "comparison_table": [
+    {
+      "config": "chunk_256_overlap_0",
+      "chunk_size": 256,
+      "overlap": 0,
+      "effective_top_k": 4,
+      "mean_recall": 0.9936,
+      "mean_latency": 0.2665,
+      "p95_latency": 0.5585
+    },
+    {
+      "config": "chunk_256_overlap_64",
+      "chunk_size": 256,
+      "overlap": 64,
+      "effective_top_k": 4,
+      "mean_recall": 0.9936,
+      "mean_latency": 0.257,
+      "p95_latency": 0.4899
+    },
+    {
+      "config": "chunk_512_overlap_0",
+      "chunk_size": 512,
+      "overlap": 0,
+      "effective_top_k": 2,
+      "mean_recall": 0.9925,
+      "mean_latency": 0.2365,
+      "p95_latency": 0.3416
+    },
+    {
+      "config": "chunk_512_overlap_128",
+      "chunk_size": 512,
+      "overlap": 128,
+      "effective_top_k": 2,
+      "mean_recall": 0.9925,
+      "mean_latency": 0.2354,
+      "p95_latency": 0.3898
+    },
+    {
+      "config": "chunk_1024_overlap_0",
+      "chunk_size": 1024,
+      "overlap": 0,
+      "effective_top_k": 1,
+      "mean_recall": 0.9759,
+      "mean_latency": 0.2742,
+      "p95_latency": 0.5192
+    },
+    {
+      "config": "chunk_1024_overlap_256",
+      "chunk_size": 1024,
+      "overlap": 256,
+      "effective_top_k": 1,
+      "mean_recall": 0.9759,
+      "mean_latency": 0.249,
+      "p95_latency": 0.5082
+    }
+  ],
+  "detailed_results": [
+    {
+      "config": {
+        "chunk_size": 256,
+        "overlap": 0,
+        "label": "chunk_256_overlap_0"
+      },
+      "effective_top_k": 4,
+      "summary": {
+        "mean_recall": 0.9936,
+        "median_recall": 1.0,
+        "mean_latency": 0.2665,
+        "median_latency": 0.2155,
+        "p95_latency": 0.5585,
+        "total_questions": 75
+      },
+      "per_question": [
+        {
+          "id": "GD-001",
+          "question": "Are my personal and payment details secure?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.6792,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 142,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-002",
+          "question": "Can I add a gift message to my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.5585,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 148,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-003",
+          "question": "Can I cancel my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2089,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-004",
+          "question": "Can I change my order after it has been placed?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2088,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 185,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-005",
+          "question": "Can I change my shipping address after placing an order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2084,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 185,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-006",
+          "question": "Can I change or cancel an item in my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2134,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-007",
+          "question": "Can I order a product as a gift?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 153,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-008",
+          "question": "Can I order a product for delivery to a different country?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2109,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 134,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-009",
+          "question": "Can I order a product if it is listed as 'backordered'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2137,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-010",
+          "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2071,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-011",
+          "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2211,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-012",
+          "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2475,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-013",
+          "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 166,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-014",
+          "question": "Can I order a product if it is listed as 'on hold'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.257,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-015",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2193,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-016",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2095,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 200,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-017",
+          "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2197,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-018",
+          "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2073,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 200,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-019",
+          "question": "Can I order a product if it is listed as 'sold out'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.4659,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-020",
+          "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2138,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 183,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-021",
+          "question": "Can I order a product that is discontinued?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2093,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 165,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-022",
+          "question": "Can I order a product that is labeled as 'limited edition'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2154,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 186,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-023",
+          "question": "Can I order a product that is listed as 'coming soon'?",
+          "category": "orders_and_shipping",
+          "recall": 0.5217,
+          "latency_seconds": 0.2832,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-024",
+          "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.4285,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 195,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-025",
+          "question": "Can I order a product that is out of stock?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2143,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 187,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-026",
+          "question": "Can I order by phone?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.565,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 212,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-027",
+          "question": "Can I order without creating an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.3687,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 150,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-028",
+          "question": "Can I request a custom order or personalized product?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2148,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 158,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-029",
+          "question": "Can I request a product demonstration before making a purchase?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2094,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 148,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-030",
+          "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-031",
+          "question": "Can I request a product if it is listed as 'discontinued'?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2519,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 184,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-032",
+          "question": "Can I request a product if it is not currently available in my preferred color?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2104,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 190,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-033",
+          "question": "Can I request a product if it is not currently available in my size?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2445,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 190,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-034",
+          "question": "Can I request a product if it is not listed on your website?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2103,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 181,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-035",
+          "question": "Can I request a product repair or replacement if it is damaged?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2418,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-036",
+          "question": "Can I request a product that is currently out of stock to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2097,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-037",
+          "question": "Can I request a product that is currently out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2095,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-038",
+          "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2108,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 176,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-039",
+          "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2155,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-040",
+          "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2108,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-041",
+          "question": "Can I request a product that is out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2309,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-042",
+          "question": "Can I request a refund if the price drops after my purchase?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.3197,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 184,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-043",
+          "question": "Can I request an invoice for my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2477,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 211,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-044",
+          "question": "Can I return a product if I changed my mind?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2093,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-045",
+          "question": "Can I return a product if I no longer have the original packaging?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2108,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 171,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-046",
+          "question": "Can I return a product if I no longer have the original receipt?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2218,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 169,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-047",
+          "question": "Can I return a product if it was a clearance or final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.3424,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 178,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-048",
+          "question": "Can I return a product if it was a final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2064,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 178,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-049",
+          "question": "Can I return a product if it was damaged due to improper use?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2127,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-050",
+          "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2235,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-051",
+          "question": "Can I return a product if it was damaged during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.5307,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-052",
+          "question": "Can I return a product if it was purchased as a gift?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2668,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 175,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-053",
+          "question": "Can I return a product if it was purchased as part of a bundle or set?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2106,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-054",
+          "question": "Can I return a product if it was purchased during a promotional event?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2098,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-055",
+          "question": "Can I return a product if it was purchased during a sale or with a discount?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2576,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-056",
+          "question": "Can I return a product if it was purchased with a discount code?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.4797,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-057",
+          "question": "Can I return a product if it was purchased with a gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2781,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 179,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-058",
+          "question": "Can I return a product if it was purchased with a promotional gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.27,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 177,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-059",
+          "question": "Do you have a loyalty program?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2126,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 174,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-060",
+          "question": "Do you offer a satisfaction guarantee?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.7742,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 171,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-061",
+          "question": "Do you offer bulk or wholesale discounts?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2459,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 157,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-062",
+          "question": "Do you offer gift wrapping services?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2427,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 196,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-063",
+          "question": "Do you offer live chat support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2258,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 131,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-064",
+          "question": "How can I apply for a job at your company?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2517,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 133,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-065",
+          "question": "How can I contact customer support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2102,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-066",
+          "question": "How can I create an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2085,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 276,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-067",
+          "question": "How can I reset my password?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 165,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-068",
+          "question": "How do I unsubscribe from your newsletter?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.219,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 162,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-069",
+          "question": "How do I update my account information?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2069,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 143,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-070",
+          "question": "What are your business hours?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2542,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 250,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-071",
+          "question": "What is your email newsletter about?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2268,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 164,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-072",
+          "question": "What is your price adjustment policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.3916,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 216,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-073",
+          "question": "What is your price matching policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2378,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 186,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-074",
+          "question": "What payment methods do you accept?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2095,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 135,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-075",
+          "question": "What should I do if my discount code is not working?",
+          "category": "technical_support",
+          "recall": 1.0,
+          "latency_seconds": 0.2119,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 273,
+          "generated_answer": "LLM call skipped"
+        }
+      ]
+    },
+    {
+      "config": {
+        "chunk_size": 256,
+        "overlap": 64,
+        "label": "chunk_256_overlap_64"
+      },
+      "effective_top_k": 4,
+      "summary": {
+        "mean_recall": 0.9936,
+        "median_recall": 1.0,
+        "mean_latency": 0.257,
+        "median_latency": 0.2157,
+        "p95_latency": 0.4899,
+        "total_questions": 75
+      },
+      "per_question": [
+        {
+          "id": "GD-001",
+          "question": "Are my personal and payment details secure?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2075,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 142,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-002",
+          "question": "Can I add a gift message to my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2113,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 148,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-003",
+          "question": "Can I cancel my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2446,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-004",
+          "question": "Can I change my order after it has been placed?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2102,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 185,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-005",
+          "question": "Can I change my shipping address after placing an order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.4899,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 185,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-006",
+          "question": "Can I change or cancel an item in my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2088,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-007",
+          "question": "Can I order a product as a gift?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2413,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 153,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-008",
+          "question": "Can I order a product for delivery to a different country?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2137,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 134,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-009",
+          "question": "Can I order a product if it is listed as 'backordered'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.4656,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-010",
+          "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.272,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-011",
+          "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2098,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-012",
+          "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2327,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-013",
+          "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2157,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 166,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-014",
+          "question": "Can I order a product if it is listed as 'on hold'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2517,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-015",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.21,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-016",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 200,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-017",
+          "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2205,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-018",
+          "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.7383,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 200,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-019",
+          "question": "Can I order a product if it is listed as 'sold out'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2115,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 189,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-020",
+          "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2232,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 183,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-021",
+          "question": "Can I order a product that is discontinued?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.3686,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 165,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-022",
+          "question": "Can I order a product that is labeled as 'limited edition'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2102,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 186,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-023",
+          "question": "Can I order a product that is listed as 'coming soon'?",
+          "category": "orders_and_shipping",
+          "recall": 0.5217,
+          "latency_seconds": 0.209,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-024",
+          "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.5161,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 195,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-025",
+          "question": "Can I order a product that is out of stock?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.4412,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 187,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-026",
+          "question": "Can I order by phone?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2428,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 212,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-027",
+          "question": "Can I order without creating an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2221,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 150,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-028",
+          "question": "Can I request a custom order or personalized product?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 158,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-029",
+          "question": "Can I request a product demonstration before making a purchase?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2112,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 148,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-030",
+          "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2091,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-031",
+          "question": "Can I request a product if it is listed as 'discontinued'?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.209,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 184,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-032",
+          "question": "Can I request a product if it is not currently available in my preferred color?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 190,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-033",
+          "question": "Can I request a product if it is not currently available in my size?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2126,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 190,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-034",
+          "question": "Can I request a product if it is not listed on your website?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2211,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 181,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-035",
+          "question": "Can I request a product repair or replacement if it is damaged?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2302,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-036",
+          "question": "Can I request a product that is currently out of stock to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.213,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 192,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-037",
+          "question": "Can I request a product that is currently out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2125,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-038",
+          "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2256,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 176,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-039",
+          "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.276,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-040",
+          "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2103,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-041",
+          "question": "Can I request a product that is out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.5351,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-042",
+          "question": "Can I request a refund if the price drops after my purchase?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2895,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 184,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-043",
+          "question": "Can I request an invoice for my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2132,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 211,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-044",
+          "question": "Can I return a product if I changed my mind?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2129,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-045",
+          "question": "Can I return a product if I no longer have the original packaging?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2235,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 171,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-046",
+          "question": "Can I return a product if I no longer have the original receipt?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2944,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 169,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-047",
+          "question": "Can I return a product if it was a clearance or final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.36,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 178,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-048",
+          "question": "Can I return a product if it was a final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2141,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 178,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-049",
+          "question": "Can I return a product if it was damaged due to improper use?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2132,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-050",
+          "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2083,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-051",
+          "question": "Can I return a product if it was damaged during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2602,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-052",
+          "question": "Can I return a product if it was purchased as a gift?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2575,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 175,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-053",
+          "question": "Can I return a product if it was purchased as part of a bundle or set?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2078,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 188,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-054",
+          "question": "Can I return a product if it was purchased during a promotional event?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.4469,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-055",
+          "question": "Can I return a product if it was purchased during a sale or with a discount?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2292,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-056",
+          "question": "Can I return a product if it was purchased with a discount code?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2622,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 180,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-057",
+          "question": "Can I return a product if it was purchased with a gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2127,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 179,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-058",
+          "question": "Can I return a product if it was purchased with a promotional gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2096,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 177,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-059",
+          "question": "Do you have a loyalty program?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.3024,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 174,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-060",
+          "question": "Do you offer a satisfaction guarantee?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2099,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 171,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-061",
+          "question": "Do you offer bulk or wholesale discounts?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2119,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 157,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-062",
+          "question": "Do you offer gift wrapping services?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2149,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 196,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-063",
+          "question": "Do you offer live chat support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2665,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 131,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-064",
+          "question": "How can I apply for a job at your company?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.216,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 133,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-065",
+          "question": "How can I contact customer support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2618,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 173,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-066",
+          "question": "How can I create an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2327,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 276,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-067",
+          "question": "How can I reset my password?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2123,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 165,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-068",
+          "question": "How do I unsubscribe from your newsletter?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2436,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 162,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-069",
+          "question": "How do I update my account information?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2163,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 143,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-070",
+          "question": "What are your business hours?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2417,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 250,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-071",
+          "question": "What is your email newsletter about?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2085,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 164,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-072",
+          "question": "What is your price adjustment policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2084,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 216,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-073",
+          "question": "What is your price matching policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2107,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 186,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-074",
+          "question": "What payment methods do you accept?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2081,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 135,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-075",
+          "question": "What should I do if my discount code is not working?",
+          "category": "technical_support",
+          "recall": 1.0,
+          "latency_seconds": 0.2062,
+          "chunks_retrieved": 4,
+          "context_length_tokens": 273,
+          "generated_answer": "LLM call skipped"
+        }
+      ]
+    },
+    {
+      "config": {
+        "chunk_size": 512,
+        "overlap": 0,
+        "label": "chunk_512_overlap_0"
+      },
+      "effective_top_k": 2,
+      "summary": {
+        "mean_recall": 0.9925,
+        "median_recall": 1.0,
+        "mean_latency": 0.2365,
+        "median_latency": 0.2131,
+        "p95_latency": 0.3416,
+        "total_questions": 75
+      },
+      "per_question": [
+        {
+          "id": "GD-001",
+          "question": "Are my personal and payment details secure?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2154,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 71,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-002",
+          "question": "Can I add a gift message to my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2089,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 70,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-003",
+          "question": "Can I cancel my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2554,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-004",
+          "question": "Can I change my order after it has been placed?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2104,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 99,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-005",
+          "question": "Can I change my shipping address after placing an order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2081,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 99,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-006",
+          "question": "Can I change or cancel an item in my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2159,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-007",
+          "question": "Can I order a product as a gift?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2593,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 83,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-008",
+          "question": "Can I order a product for delivery to a different country?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2438,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 61,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-009",
+          "question": "Can I order a product if it is listed as 'backordered'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-010",
+          "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2169,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-011",
+          "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2558,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 96,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-012",
+          "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2078,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-013",
+          "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.254,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 77,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-014",
+          "question": "Can I order a product if it is listed as 'on hold'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2154,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-015",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-016",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2075,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-017",
+          "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2062,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 96,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-018",
+          "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2071,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 98,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-019",
+          "question": "Can I order a product if it is listed as 'sold out'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2145,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 96,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-020",
+          "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2176,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-021",
+          "question": "Can I order a product that is discontinued?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2164,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 77,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-022",
+          "question": "Can I order a product that is labeled as 'limited edition'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2743,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-023",
+          "question": "Can I order a product that is listed as 'coming soon'?",
+          "category": "orders_and_shipping",
+          "recall": 0.4348,
+          "latency_seconds": 0.2119,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-024",
+          "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2076,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 95,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-025",
+          "question": "Can I order a product that is out of stock?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-026",
+          "question": "Can I order by phone?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2098,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 121,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-027",
+          "question": "Can I order without creating an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.287,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 71,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-028",
+          "question": "Can I request a custom order or personalized product?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2113,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 80,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-029",
+          "question": "Can I request a product demonstration before making a purchase?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2431,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 85,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-030",
+          "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2139,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-031",
+          "question": "Can I request a product if it is listed as 'discontinued'?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-032",
+          "question": "Can I request a product if it is not currently available in my preferred color?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2098,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-033",
+          "question": "Can I request a product if it is not currently available in my size?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2086,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-034",
+          "question": "Can I request a product if it is not listed on your website?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2606,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-035",
+          "question": "Can I request a product repair or replacement if it is damaged?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2131,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 81,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-036",
+          "question": "Can I request a product that is currently out of stock to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2102,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-037",
+          "question": "Can I request a product that is currently out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.206,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 85,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-038",
+          "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2065,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-039",
+          "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2092,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-040",
+          "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2477,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-041",
+          "question": "Can I request a product that is out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2218,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-042",
+          "question": "Can I request a refund if the price drops after my purchase?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2199,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-043",
+          "question": "Can I request an invoice for my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.605,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 80,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-044",
+          "question": "Can I return a product if I changed my mind?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2458,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 91,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-045",
+          "question": "Can I return a product if I no longer have the original packaging?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.208,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 89,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-046",
+          "question": "Can I return a product if I no longer have the original receipt?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.3051,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 81,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-047",
+          "question": "Can I return a product if it was a clearance or final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2092,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-048",
+          "question": "Can I return a product if it was a final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.218,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-049",
+          "question": "Can I return a product if it was damaged due to improper use?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2066,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 99,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-050",
+          "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2107,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 88,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-051",
+          "question": "Can I return a product if it was damaged during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2099,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 88,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-052",
+          "question": "Can I return a product if it was purchased as a gift?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2084,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-053",
+          "question": "Can I return a product if it was purchased as part of a bundle or set?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2114,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 103,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-054",
+          "question": "Can I return a product if it was purchased during a promotional event?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.211,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 90,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-055",
+          "question": "Can I return a product if it was purchased during a sale or with a discount?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2072,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 91,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-056",
+          "question": "Can I return a product if it was purchased with a discount code?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2185,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 90,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-057",
+          "question": "Can I return a product if it was purchased with a gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.21,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-058",
+          "question": "Can I return a product if it was purchased with a promotional gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2121,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-059",
+          "question": "Do you have a loyalty program?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2661,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 98,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-060",
+          "question": "Do you offer a satisfaction guarantee?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2157,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 81,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-061",
+          "question": "Do you offer bulk or wholesale discounts?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2426,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-062",
+          "question": "Do you offer gift wrapping services?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2135,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 61,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-063",
+          "question": "Do you offer live chat support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2097,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 59,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-064",
+          "question": "How can I apply for a job at your company?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 75,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-065",
+          "question": "How can I contact customer support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.275,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-066",
+          "question": "How can I create an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2118,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 77,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-067",
+          "question": "How can I reset my password?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 78,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-068",
+          "question": "How do I unsubscribe from your newsletter?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.208,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 76,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-069",
+          "question": "How do I update my account information?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.5822,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 72,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-070",
+          "question": "What are your business hours?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.3416,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 164,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-071",
+          "question": "What is your email newsletter about?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2115,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 101,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-072",
+          "question": "What is your price adjustment policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2073,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-073",
+          "question": "What is your price matching policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.3916,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-074",
+          "question": "What payment methods do you accept?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2529,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 65,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-075",
+          "question": "What should I do if my discount code is not working?",
+          "category": "technical_support",
+          "recall": 1.0,
+          "latency_seconds": 0.229,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        }
+      ]
+    },
+    {
+      "config": {
+        "chunk_size": 512,
+        "overlap": 128,
+        "label": "chunk_512_overlap_128"
+      },
+      "effective_top_k": 2,
+      "summary": {
+        "mean_recall": 0.9925,
+        "median_recall": 1.0,
+        "mean_latency": 0.2354,
+        "median_latency": 0.2126,
+        "p95_latency": 0.3898,
+        "total_questions": 75
+      },
+      "per_question": [
+        {
+          "id": "GD-001",
+          "question": "Are my personal and payment details secure?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.4416,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 71,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-002",
+          "question": "Can I add a gift message to my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 70,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-003",
+          "question": "Can I cancel my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2068,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-004",
+          "question": "Can I change my order after it has been placed?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2127,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 99,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-005",
+          "question": "Can I change my shipping address after placing an order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2104,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 99,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-006",
+          "question": "Can I change or cancel an item in my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2138,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-007",
+          "question": "Can I order a product as a gift?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2131,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 83,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-008",
+          "question": "Can I order a product for delivery to a different country?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2126,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 61,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-009",
+          "question": "Can I order a product if it is listed as 'backordered'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.208,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-010",
+          "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2094,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-011",
+          "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2119,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 96,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-012",
+          "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2116,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-013",
+          "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2081,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 77,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-014",
+          "question": "Can I order a product if it is listed as 'on hold'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2083,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-015",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2173,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-016",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2967,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-017",
+          "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2611,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 96,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-018",
+          "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.211,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 98,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-019",
+          "question": "Can I order a product if it is listed as 'sold out'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.4109,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 96,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-020",
+          "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2077,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-021",
+          "question": "Can I order a product that is discontinued?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2461,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 77,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-022",
+          "question": "Can I order a product that is labeled as 'limited edition'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2108,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-023",
+          "question": "Can I order a product that is listed as 'coming soon'?",
+          "category": "orders_and_shipping",
+          "recall": 0.4348,
+          "latency_seconds": 0.32,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-024",
+          "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2755,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 95,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-025",
+          "question": "Can I order a product that is out of stock?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2464,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-026",
+          "question": "Can I order by phone?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2076,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 121,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-027",
+          "question": "Can I order without creating an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2127,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 71,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-028",
+          "question": "Can I request a custom order or personalized product?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2091,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 80,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-029",
+          "question": "Can I request a product demonstration before making a purchase?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2713,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 85,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-030",
+          "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2134,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 100,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-031",
+          "question": "Can I request a product if it is listed as 'discontinued'?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2455,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-032",
+          "question": "Can I request a product if it is not currently available in my preferred color?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2191,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-033",
+          "question": "Can I request a product if it is not currently available in my size?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2133,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-034",
+          "question": "Can I request a product if it is not listed on your website?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2716,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-035",
+          "question": "Can I request a product repair or replacement if it is damaged?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 81,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-036",
+          "question": "Can I request a product that is currently out of stock to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2108,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-037",
+          "question": "Can I request a product that is currently out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.4318,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 85,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-038",
+          "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2088,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-039",
+          "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2094,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-040",
+          "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2135,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-041",
+          "question": "Can I request a product that is out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2109,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-042",
+          "question": "Can I request a refund if the price drops after my purchase?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2222,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-043",
+          "question": "Can I request an invoice for my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.215,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 80,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-044",
+          "question": "Can I return a product if I changed my mind?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 91,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-045",
+          "question": "Can I return a product if I no longer have the original packaging?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2086,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 89,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-046",
+          "question": "Can I return a product if I no longer have the original receipt?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2089,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 81,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-047",
+          "question": "Can I return a product if it was a clearance or final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.3477,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-048",
+          "question": "Can I return a product if it was a final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2431,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-049",
+          "question": "Can I return a product if it was damaged due to improper use?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2114,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 99,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-050",
+          "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2126,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 88,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-051",
+          "question": "Can I return a product if it was damaged during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2049,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 88,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-052",
+          "question": "Can I return a product if it was purchased as a gift?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2109,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-053",
+          "question": "Can I return a product if it was purchased as part of a bundle or set?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2125,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 103,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-054",
+          "question": "Can I return a product if it was purchased during a promotional event?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2065,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 90,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-055",
+          "question": "Can I return a product if it was purchased during a sale or with a discount?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2192,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 91,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-056",
+          "question": "Can I return a product if it was purchased with a discount code?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.3678,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 90,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-057",
+          "question": "Can I return a product if it was purchased with a gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2448,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-058",
+          "question": "Can I return a product if it was purchased with a promotional gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.212,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 92,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-059",
+          "question": "Do you have a loyalty program?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2141,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 98,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-060",
+          "question": "Do you offer a satisfaction guarantee?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2073,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 81,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-061",
+          "question": "Do you offer bulk or wholesale discounts?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2458,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 84,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-062",
+          "question": "Do you offer gift wrapping services?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2505,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 61,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-063",
+          "question": "Do you offer live chat support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.208,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 59,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-064",
+          "question": "How can I apply for a job at your company?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2082,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 75,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-065",
+          "question": "How can I contact customer support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2051,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 86,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-066",
+          "question": "How can I create an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2067,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 77,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-067",
+          "question": "How can I reset my password?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2091,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 78,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-068",
+          "question": "How do I unsubscribe from your newsletter?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2142,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 76,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-069",
+          "question": "How do I update my account information?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2244,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 72,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-070",
+          "question": "What are your business hours?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.207,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 164,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-071",
+          "question": "What is your email newsletter about?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2088,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 101,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-072",
+          "question": "What is your price adjustment policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2369,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-073",
+          "question": "What is your price matching policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.3898,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 93,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-074",
+          "question": "What payment methods do you accept?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2039,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 65,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-075",
+          "question": "What should I do if my discount code is not working?",
+          "category": "technical_support",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 2,
+          "context_length_tokens": 87,
+          "generated_answer": "LLM call skipped"
+        }
+      ]
+    },
+    {
+      "config": {
+        "chunk_size": 1024,
+        "overlap": 0,
+        "label": "chunk_1024_overlap_0"
+      },
+      "effective_top_k": 1,
+      "summary": {
+        "mean_recall": 0.9759,
+        "median_recall": 1.0,
+        "mean_latency": 0.2742,
+        "median_latency": 0.2151,
+        "p95_latency": 0.5192,
+        "total_questions": 75
+      },
+      "per_question": [
+        {
+          "id": "GD-001",
+          "question": "Are my personal and payment details secure?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.5192,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-002",
+          "question": "Can I add a gift message to my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2096,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-003",
+          "question": "Can I cancel my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2118,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-004",
+          "question": "Can I change my order after it has been placed?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2057,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 49,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-005",
+          "question": "Can I change my shipping address after placing an order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.3672,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-006",
+          "question": "Can I change or cancel an item in my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2063,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-007",
+          "question": "Can I order a product as a gift?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2102,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-008",
+          "question": "Can I order a product for delivery to a different country?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-009",
+          "question": "Can I order a product if it is listed as 'backordered'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2099,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 40,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-010",
+          "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2297,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-011",
+          "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2345,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-012",
+          "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.503,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-013",
+          "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2421,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-014",
+          "question": "Can I order a product if it is listed as 'on hold'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.5453,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 44,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-015",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.3566,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 53,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-016",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.6884,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-017",
+          "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2125,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 49,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-018",
+          "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.3915,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 51,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-019",
+          "question": "Can I order a product if it is listed as 'sold out'?",
+          "category": "orders_and_shipping",
+          "recall": 0.44,
+          "latency_seconds": 1.3045,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 51,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-020",
+          "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-021",
+          "question": "Can I order a product that is discontinued?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2096,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 29,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-022",
+          "question": "Can I order a product that is labeled as 'limited edition'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.3971,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 36,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-023",
+          "question": "Can I order a product that is listed as 'coming soon'?",
+          "category": "orders_and_shipping",
+          "recall": 0.4348,
+          "latency_seconds": 0.2148,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-024",
+          "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2121,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-025",
+          "question": "Can I order a product that is out of stock?",
+          "category": "product_information",
+          "recall": 0.5,
+          "latency_seconds": 0.5032,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 53,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-026",
+          "question": "Can I order by phone?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.21,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 32,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-027",
+          "question": "Can I order without creating an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.3076,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-028",
+          "question": "Can I request a custom order or personalized product?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2044,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 32,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-029",
+          "question": "Can I request a product demonstration before making a purchase?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.3445,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-030",
+          "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2386,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-031",
+          "question": "Can I request a product if it is listed as 'discontinued'?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2086,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 38,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-032",
+          "question": "Can I request a product if it is not currently available in my preferred color?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2065,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-033",
+          "question": "Can I request a product if it is not currently available in my size?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2381,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-034",
+          "question": "Can I request a product if it is not listed on your website?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2137,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-035",
+          "question": "Can I request a product repair or replacement if it is damaged?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.4505,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-036",
+          "question": "Can I request a product that is currently out of stock to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2256,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-037",
+          "question": "Can I request a product that is currently out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 0.9091,
+          "latency_seconds": 0.2163,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-038",
+          "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2425,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-039",
+          "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2186,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-040",
+          "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2119,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-041",
+          "question": "Can I request a product that is out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 0.9091,
+          "latency_seconds": 0.2315,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-042",
+          "question": "Can I request a refund if the price drops after my purchase?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2442,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-043",
+          "question": "Can I request an invoice for my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.3068,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 38,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-044",
+          "question": "Can I return a product if I changed my mind?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2145,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-045",
+          "question": "Can I return a product if I no longer have the original packaging?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.3744,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-046",
+          "question": "Can I return a product if I no longer have the original receipt?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2795,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-047",
+          "question": "Can I return a product if it was a clearance or final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-048",
+          "question": "Can I return a product if it was a final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2042,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 44,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-049",
+          "question": "Can I return a product if it was damaged due to improper use?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2064,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 51,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-050",
+          "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.205,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-051",
+          "question": "Can I return a product if it was damaged during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2059,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 40,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-052",
+          "question": "Can I return a product if it was purchased as a gift?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2205,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 42,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-053",
+          "question": "Can I return a product if it was purchased as part of a bundle or set?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2132,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 55,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-054",
+          "question": "Can I return a product if it was purchased during a promotional event?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2083,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-055",
+          "question": "Can I return a product if it was purchased during a sale or with a discount?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2087,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-056",
+          "question": "Can I return a product if it was purchased with a discount code?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2062,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 42,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-057",
+          "question": "Can I return a product if it was purchased with a gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2034,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-058",
+          "question": "Can I return a product if it was purchased with a promotional gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2756,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-059",
+          "question": "Do you have a loyalty program?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-060",
+          "question": "Do you offer a satisfaction guarantee?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2042,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 35,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-061",
+          "question": "Do you offer bulk or wholesale discounts?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2111,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-062",
+          "question": "Do you offer gift wrapping services?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2087,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-063",
+          "question": "Do you offer live chat support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2726,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 42,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-064",
+          "question": "How can I apply for a job at your company?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2087,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-065",
+          "question": "How can I contact customer support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2081,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-066",
+          "question": "How can I create an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2446,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 38,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-067",
+          "question": "How can I reset my password?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 33,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-068",
+          "question": "How do I unsubscribe from your newsletter?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2422,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-069",
+          "question": "How do I update my account information?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2427,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 33,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-070",
+          "question": "What are your business hours?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2189,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 32,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-071",
+          "question": "What is your email newsletter about?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-072",
+          "question": "What is your price adjustment policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2179,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-073",
+          "question": "What is your price matching policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2477,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-074",
+          "question": "What payment methods do you accept?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2342,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 26,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-075",
+          "question": "What should I do if my discount code is not working?",
+          "category": "technical_support",
+          "recall": 1.0,
+          "latency_seconds": 0.2103,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        }
+      ]
+    },
+    {
+      "config": {
+        "chunk_size": 1024,
+        "overlap": 256,
+        "label": "chunk_1024_overlap_256"
+      },
+      "effective_top_k": 1,
+      "summary": {
+        "mean_recall": 0.9759,
+        "median_recall": 1.0,
+        "mean_latency": 0.249,
+        "median_latency": 0.2132,
+        "p95_latency": 0.5082,
+        "total_questions": 75
+      },
+      "per_question": [
+        {
+          "id": "GD-001",
+          "question": "Are my personal and payment details secure?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2062,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-002",
+          "question": "Can I add a gift message to my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2043,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-003",
+          "question": "Can I cancel my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2117,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-004",
+          "question": "Can I change my order after it has been placed?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2055,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 49,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-005",
+          "question": "Can I change my shipping address after placing an order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2363,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-006",
+          "question": "Can I change or cancel an item in my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2155,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-007",
+          "question": "Can I order a product as a gift?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-008",
+          "question": "Can I order a product for delivery to a different country?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2658,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-009",
+          "question": "Can I order a product if it is listed as 'backordered'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2342,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 40,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-010",
+          "question": "Can I order a product if it is listed as 'coming soon' and available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2176,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-011",
+          "question": "Can I order a product if it is listed as 'coming soon' and not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2121,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-012",
+          "question": "Can I order a product if it is listed as 'coming soon' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2112,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-013",
+          "question": "Can I order a product if it is listed as 'discontinued' but still visible on the website?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2092,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-014",
+          "question": "Can I order a product if it is listed as 'on hold'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 44,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-015",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for backorder?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2141,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 53,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-016",
+          "question": "Can I order a product if it is listed as 'out of stock' but available for pre-order?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.208,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-017",
+          "question": "Can I order a product if it is listed as 'pre-order' but available for backorder?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2132,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 49,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-018",
+          "question": "Can I order a product if it is listed as 'sold out' but available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2081,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 51,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-019",
+          "question": "Can I order a product if it is listed as 'sold out'?",
+          "category": "orders_and_shipping",
+          "recall": 0.44,
+          "latency_seconds": 0.2177,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 51,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-020",
+          "question": "Can I order a product if it is listed as 'temporarily unavailable'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-021",
+          "question": "Can I order a product that is discontinued?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2062,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 29,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-022",
+          "question": "Can I order a product that is labeled as 'limited edition'?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2097,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 36,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-023",
+          "question": "Can I order a product that is listed as 'coming soon'?",
+          "category": "orders_and_shipping",
+          "recall": 0.4348,
+          "latency_seconds": 0.2091,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-024",
+          "question": "Can I order a product that is listed as 'pre-order' with other in-stock items?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.4811,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-025",
+          "question": "Can I order a product that is out of stock?",
+          "category": "product_information",
+          "recall": 0.5,
+          "latency_seconds": 0.2422,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 53,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-026",
+          "question": "Can I order by phone?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2142,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 32,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-027",
+          "question": "Can I order without creating an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2343,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-028",
+          "question": "Can I request a custom order or personalized product?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.504,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 32,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-029",
+          "question": "Can I request a product demonstration before making a purchase?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2106,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-030",
+          "question": "Can I request a product if it is listed as 'coming soon' but not available for pre-order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2151,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-031",
+          "question": "Can I request a product if it is listed as 'discontinued'?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2547,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 38,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-032",
+          "question": "Can I request a product if it is not currently available in my preferred color?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2167,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-033",
+          "question": "Can I request a product if it is not currently available in my size?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2471,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-034",
+          "question": "Can I request a product if it is not listed on your website?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.4851,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-035",
+          "question": "Can I request a product repair or replacement if it is damaged?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2125,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-036",
+          "question": "Can I request a product that is currently out of stock to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.5141,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-037",
+          "question": "Can I request a product that is currently out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 0.9091,
+          "latency_seconds": 0.216,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-038",
+          "question": "Can I request a product that is listed as 'limited edition' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2082,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 50,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-039",
+          "question": "Can I request a product that is listed as 'out of stock' to be reserved for me?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2116,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-040",
+          "question": "Can I request a product that is listed as 'out of stock' to be restocked?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.242,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-041",
+          "question": "Can I request a product that is out of stock to be restocked?",
+          "category": "product_information",
+          "recall": 0.9091,
+          "latency_seconds": 0.3032,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-042",
+          "question": "Can I request a refund if the price drops after my purchase?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2132,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-043",
+          "question": "Can I request an invoice for my order?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2068,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 38,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-044",
+          "question": "Can I return a product if I changed my mind?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2654,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-045",
+          "question": "Can I return a product if I no longer have the original packaging?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2411,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-046",
+          "question": "Can I return a product if I no longer have the original receipt?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.5107,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-047",
+          "question": "Can I return a product if it was a clearance or final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.2493,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-048",
+          "question": "Can I return a product if it was a final sale item?",
+          "category": "product_information",
+          "recall": 1.0,
+          "latency_seconds": 0.215,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 44,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-049",
+          "question": "Can I return a product if it was damaged due to improper use?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2096,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 51,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-050",
+          "question": "Can I return a product if it was damaged due to mishandling during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2101,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-051",
+          "question": "Can I return a product if it was damaged during shipping?",
+          "category": "orders_and_shipping",
+          "recall": 1.0,
+          "latency_seconds": 0.2088,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 40,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-052",
+          "question": "Can I return a product if it was purchased as a gift?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2061,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 42,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-053",
+          "question": "Can I return a product if it was purchased as part of a bundle or set?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2488,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 55,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-054",
+          "question": "Can I return a product if it was purchased during a promotional event?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2134,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-055",
+          "question": "Can I return a product if it was purchased during a sale or with a discount?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.211,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-056",
+          "question": "Can I return a product if it was purchased with a discount code?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2184,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 42,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-057",
+          "question": "Can I return a product if it was purchased with a gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2155,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-058",
+          "question": "Can I return a product if it was purchased with a promotional gift card?",
+          "category": "returns_and_refunds",
+          "recall": 1.0,
+          "latency_seconds": 0.2097,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 47,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-059",
+          "question": "Do you have a loyalty program?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.3814,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 46,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-060",
+          "question": "Do you offer a satisfaction guarantee?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.5082,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 35,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-061",
+          "question": "Do you offer bulk or wholesale discounts?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2585,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 41,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-062",
+          "question": "Do you offer gift wrapping services?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2075,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-063",
+          "question": "Do you offer live chat support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2061,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 42,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-064",
+          "question": "How can I apply for a job at your company?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.212,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-065",
+          "question": "How can I contact customer support?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.5516,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-066",
+          "question": "How can I create an account?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2095,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 38,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-067",
+          "question": "How can I reset my password?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2157,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 33,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-068",
+          "question": "How do I unsubscribe from your newsletter?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2079,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 39,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-069",
+          "question": "How do I update my account information?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2087,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 33,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-070",
+          "question": "What are your business hours?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2428,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 32,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-071",
+          "question": "What is your email newsletter about?",
+          "category": "account_management",
+          "recall": 1.0,
+          "latency_seconds": 0.2117,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 37,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-072",
+          "question": "What is your price adjustment policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2086,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 45,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-073",
+          "question": "What is your price matching policy?",
+          "category": "general_inquiries",
+          "recall": 1.0,
+          "latency_seconds": 0.2122,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 48,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-074",
+          "question": "What payment methods do you accept?",
+          "category": "payments_and_billing",
+          "recall": 1.0,
+          "latency_seconds": 0.2063,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 26,
+          "generated_answer": "LLM call skipped"
+        },
+        {
+          "id": "GD-075",
+          "question": "What should I do if my discount code is not working?",
+          "category": "technical_support",
+          "recall": 1.0,
+          "latency_seconds": 0.2102,
+          "chunks_retrieved": 1,
+          "context_length_tokens": 43,
+          "generated_answer": "LLM call skipped"
+        }
+      ]
+    }
+  ]
+}

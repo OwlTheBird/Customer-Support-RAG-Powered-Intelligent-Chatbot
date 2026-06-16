@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, jsonify  # , Response
-from llm import chain, extract_text
-from retriever import retrieve, build_context
+from src.llm import chain, extract_text
+from src.retriever import retrieve, build_context
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from errors import register_error_handlers
+from src.errors import register_error_handlers
 
 app = Flask(__name__)
 limiter = Limiter(

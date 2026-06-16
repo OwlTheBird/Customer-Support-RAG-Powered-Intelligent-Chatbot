@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "timestamp": "2026-06-14T14:54:32.253712+00:00",
+    "total_evaluated": 10,
+    "judge_model": "gemini-3.1-flash-lite",
+    "ragas_version": "0.4.3",
+    "limitations": [
+      "Circular bias: Gemini is used as the judge to evaluate Gemini-generated answers.",
+      "Small sample size may not be statistically representative."
+    ]
+  },
+  "aggregate": {
+    "faithfulness": {
+      "mean": 0.7973,
+      "median": 0.8167,
+      "std": 0.2215
+    },
+    "answer_relevancy": {
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0
+    },
+    "context_precision": {
+      "mean": 1.0,
+      "median": 1.0,
+      "std": 0.0
+    }
+  },
+  "success_criteria": {
+    "context_precision_target": 0.8,
+    "context_precision_pass": true,
+    "answer_relevancy_target": 0.8,
+    "answer_relevancy_pass": false,
+    "faithfulness_target": 0.7,
+    "faithfulness_pass": true
+  },
+  "per_category": {
+    "orders_and_shipping": {
+      "count": 5,
+      "faithfulness_mean": 0.7517,
+      "answer_relevancy_mean": 0.0,
+      "context_precision_mean": 1.0
+    },
+    "product_information": {
+      "count": 4,
+      "faithfulness_mean": 0.8036,
+      "answer_relevancy_mean": 0.0,
+      "context_precision_mean": 1.0
+    },
+    "returns_and_refunds": {
+      "count": 1,
+      "faithfulness_mean": 1.0,
+      "answer_relevancy_mean": 0.0,
+      "context_precision_mean": 1.0
+    }
+  },
+  "per_question": [
+    {
+      "id": "GD-015",
+      "question": "",
+      "category": "product_information",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-004",
+      "question": "",
+      "category": "orders_and_shipping",
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-036",
+      "question": "",
+      "category": "product_information",
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-032",
+      "question": "",
+      "category": "product_information",
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-029",
+      "question": "",
+      "category": "product_information",
+      "faithfulness": 0.7143,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-018",
+      "question": "",
+      "category": "orders_and_shipping",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-014",
+      "question": "",
+      "category": "orders_and_shipping",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-012",
+      "question": "",
+      "category": "orders_and_shipping",
+      "faithfulness": 0.25,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-055",
+      "question": "",
+      "category": "returns_and_refunds",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    },
+    {
+      "id": "GD-005",
+      "question": "",
+      "category": "orders_and_shipping",
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0
+    }
+  ]
+}

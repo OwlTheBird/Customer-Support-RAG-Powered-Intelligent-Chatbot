@@ -1,0 +1,955 @@
+{
+  "metadata": {
+    "timestamp": "2026-06-13T21:29:16.320432+00:00",
+    "total_configs_tested": 6,
+    "entries_evaluated": 18,
+    "in_domain_count": 3,
+    "ood_count": 15,
+    "current_production_config": {
+      "prompt": "baseline (single template in config.py)",
+      "temperature": "default (unset)",
+      "top_p": "default (unset)",
+      "max_tokens": "default (unset)"
+    }
+  },
+  "best_configuration": {
+    "config": {
+      "prompt_variant": "strict_refusal",
+      "temperature": 0.0,
+      "top_p": 0.95,
+      "max_tokens": 512,
+      "label": "strict_refusal_t0.0_p0.95_m512"
+    },
+    "rouge_l_mean": 1.0,
+    "hallucination_rate": 0.0,
+    "recommendation": "Use prompt variant 'strict_refusal' with temperature=0.0, top_p=0.95, max_tokens=512"
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "config_label": "strict_refusal_t0.0_p0.95_m512",
+      "prompt_variant": "strict_refusal",
+      "temperature": 0.0,
+      "rouge_l_mean": 1.0,
+      "hallucination_rate": 0.0,
+      "ood_correct": "15/15"
+    },
+    {
+      "rank": 2,
+      "config_label": "strict_refusal_t0.7_p0.95_m512",
+      "prompt_variant": "strict_refusal",
+      "temperature": 0.7,
+      "rouge_l_mean": 1.0,
+      "hallucination_rate": 0.0,
+      "ood_correct": "15/15"
+    },
+    {
+      "rank": 3,
+      "config_label": "concise_t0.0_p0.95_m512",
+      "prompt_variant": "concise",
+      "temperature": 0.0,
+      "rouge_l_mean": 0.8322,
+      "hallucination_rate": 0.0,
+      "ood_correct": "15/15"
+    },
+    {
+      "rank": 4,
+      "config_label": "concise_t0.7_p0.95_m512",
+      "prompt_variant": "concise",
+      "temperature": 0.7,
+      "rouge_l_mean": 0.8322,
+      "hallucination_rate": 0.0,
+      "ood_correct": "15/15"
+    },
+    {
+      "rank": 5,
+      "config_label": "baseline_t0.0_p0.95_m512",
+      "prompt_variant": "baseline",
+      "temperature": 0.0,
+      "rouge_l_mean": 0.5464,
+      "hallucination_rate": 0.0,
+      "ood_correct": "15/15"
+    },
+    {
+      "rank": 6,
+      "config_label": "baseline_t0.7_p0.95_m512",
+      "prompt_variant": "baseline",
+      "temperature": 0.7,
+      "rouge_l_mean": 0.4903,
+      "hallucination_rate": 0.0,
+      "ood_correct": "15/15"
+    }
+  ],
+  "detailed_results": [
+    {
+      "config": {
+        "prompt_variant": "baseline",
+        "temperature": 0.0,
+        "top_p": 0.95,
+        "max_tokens": 512,
+        "label": "baseline_t0.0_p0.95_m512"
+      },
+      "summary": {
+        "rouge_l_mean": 0.5464,
+        "rouge_l_median": 0.6579,
+        "ood_total": 15,
+        "ood_correct_refusals": 15,
+        "hallucination_rate": 0.0,
+        "in_domain_count": 3
+      },
+      "per_question": [
+        {
+          "id": "GD-015",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "Yes, you absolutely can! If a product is listed as \"out of stock\" but is available for backorder, you are welcome to place an order to secure your item. Once the product becomes available in our inventory, we will get it shipped out to you.",
+          "rouge_l_f1": 0.6579
+        },
+        {
+          "id": "GD-004",
+          "is_ood": false,
+          "category": "orders_and_shipping",
+          "generated_answer": "Yes, you can certainly reach out to us if you need to make changes to your order! \n\nIf you need to modify your order or update your shipping address, please contact our customer support team as soon as possible. We will do our very best to accommodate your request, provided that your order has not yet been processed or shipped.",
+          "rouge_l_f1": 0.6596
+        },
+        {
+          "id": "GD-036",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "Hello! I would be happy to help you with that. \n\nUnfortunately, we are unable to reserve products that are currently out of stock. However, you don't have to worry about missing out! You can sign up for our product notifications, and we will send you an alert as soon as the item is back in stock and ready for purchase.",
+          "rouge_l_f1": 0.3218
+        },
+        {
+          "id": "OOD-016",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-015",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-009",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-007",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-006",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-019",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-014",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-002",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-001",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-003",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-033",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-008",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-017",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-020",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-028",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        }
+      ]
+    },
+    {
+      "config": {
+        "prompt_variant": "baseline",
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "max_tokens": 512,
+        "label": "baseline_t0.7_p0.95_m512"
+      },
+      "summary": {
+        "rouge_l_mean": 0.4903,
+        "rouge_l_median": 0.4874,
+        "ood_total": 15,
+        "ood_correct_refusals": 15,
+        "hallucination_rate": 0.0,
+        "in_domain_count": 3
+      },
+      "per_question": [
+        {
+          "id": "GD-015",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "Yes, you certainly can! If a product is listed as \"out of stock\" but is marked as available for backorder, you are able to place an order to secure that item. Once the product becomes available, it will be shipped out to you.",
+          "rouge_l_f1": 0.6757
+        },
+        {
+          "id": "GD-004",
+          "is_ood": false,
+          "category": "orders_and_shipping",
+          "generated_answer": "Yes, you can certainly reach out to us if you need to make changes to your order! \n\nIf you've realized you need to adjust your order or update your shipping address, please contact our customer support team as soon as possible. We will do our absolute best to accommodate your request, provided that your order hasn't already been processed or shipped. \n\nThe sooner you reach out, the better our chances of catching it in time, so don't hesitate to get in touch!",
+          "rouge_l_f1": 0.4874
+        },
+        {
+          "id": "GD-036",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "Hello! Thanks for reaching out. \n\nUnfortunately, we aren't able to reserve products that are currently out of stock. However, we have a great feature that can help: you can sign up for product notifications on the item's page. Once you do that, we’ll send you an alert as soon as the product is back in stock so you don't miss out!",
+          "rouge_l_f1": 0.3077
+        },
+        {
+          "id": "OOD-016",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-015",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-009",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-007",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-006",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-019",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-014",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-002",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-001",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-003",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-033",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-008",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-017",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-020",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-028",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        }
+      ]
+    },
+    {
+      "config": {
+        "prompt_variant": "strict_refusal",
+        "temperature": 0.0,
+        "top_p": 0.95,
+        "max_tokens": 512,
+        "label": "strict_refusal_t0.0_p0.95_m512"
+      },
+      "summary": {
+        "rouge_l_mean": 1.0,
+        "rouge_l_median": 1.0,
+        "ood_total": 15,
+        "ood_correct_refusals": 15,
+        "hallucination_rate": 0.0,
+        "in_domain_count": 3
+      },
+      "per_question": [
+        {
+          "id": "GD-015",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "If a product is listed as 'out of stock' but available for backorder, you can place an order to secure your item. The product will be shipped once it becomes available.",
+          "rouge_l_f1": 1.0
+        },
+        {
+          "id": "GD-004",
+          "is_ood": false,
+          "category": "orders_and_shipping",
+          "generated_answer": "If you need to change your order, please contact our customer support team as soon as possible. We will do our best to accommodate your request if the order has not been processed yet.",
+          "rouge_l_f1": 1.0
+        },
+        {
+          "id": "GD-036",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "We do not offer reservations for out-of-stock products. However, you can sign up for product notifications to be alerted when it becomes available again.",
+          "rouge_l_f1": 1.0
+        },
+        {
+          "id": "OOD-016",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-015",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-009",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-007",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-006",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-019",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-014",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-002",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-001",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-003",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-033",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-008",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-017",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-020",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-028",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        }
+      ]
+    },
+    {
+      "config": {
+        "prompt_variant": "strict_refusal",
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "max_tokens": 512,
+        "label": "strict_refusal_t0.7_p0.95_m512"
+      },
+      "summary": {
+        "rouge_l_mean": 1.0,
+        "rouge_l_median": 1.0,
+        "ood_total": 15,
+        "ood_correct_refusals": 15,
+        "hallucination_rate": 0.0,
+        "in_domain_count": 3
+      },
+      "per_question": [
+        {
+          "id": "GD-015",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "If a product is listed as 'out of stock' but available for backorder, you can place an order to secure your item. The product will be shipped once it becomes available.",
+          "rouge_l_f1": 1.0
+        },
+        {
+          "id": "GD-004",
+          "is_ood": false,
+          "category": "orders_and_shipping",
+          "generated_answer": "If you need to change your order, please contact our customer support team as soon as possible. We will do our best to accommodate your request if the order has not been processed yet.",
+          "rouge_l_f1": 1.0
+        },
+        {
+          "id": "GD-036",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "We do not offer reservations for out-of-stock products. However, you can sign up for product notifications to be alerted when it becomes available again.",
+          "rouge_l_f1": 1.0
+        },
+        {
+          "id": "OOD-016",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-015",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-009",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-007",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-006",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-019",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-014",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-002",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-001",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-003",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-033",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-008",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-017",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-020",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-028",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        }
+      ]
+    },
+    {
+      "config": {
+        "prompt_variant": "concise",
+        "temperature": 0.0,
+        "top_p": 0.95,
+        "max_tokens": 512,
+        "label": "concise_t0.0_p0.95_m512"
+      },
+      "summary": {
+        "rouge_l_mean": 0.8322,
+        "rouge_l_median": 0.871,
+        "ood_total": 15,
+        "ood_correct_refusals": 15,
+        "hallucination_rate": 0.0,
+        "in_domain_count": 3
+      },
+      "per_question": [
+        {
+          "id": "GD-015",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "Yes, you can place an order to secure your item. The product will be shipped once it becomes available.",
+          "rouge_l_f1": 0.72
+        },
+        {
+          "id": "GD-004",
+          "is_ood": false,
+          "category": "orders_and_shipping",
+          "generated_answer": "Yes, please contact our customer support team as soon as possible. We will do our best to accommodate your request if the order has not been processed yet.",
+          "rouge_l_f1": 0.871
+        },
+        {
+          "id": "GD-036",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "No, we do not offer reservations for out-of-stock products. You can sign up for product notifications to be alerted when the item becomes available again.",
+          "rouge_l_f1": 0.9057
+        },
+        {
+          "id": "OOD-016",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-015",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-009",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-007",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-006",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-019",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-014",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-002",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-001",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-003",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-033",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-008",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-017",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-020",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-028",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        }
+      ]
+    },
+    {
+      "config": {
+        "prompt_variant": "concise",
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "max_tokens": 512,
+        "label": "concise_t0.7_p0.95_m512"
+      },
+      "summary": {
+        "rouge_l_mean": 0.8322,
+        "rouge_l_median": 0.871,
+        "ood_total": 15,
+        "ood_correct_refusals": 15,
+        "hallucination_rate": 0.0,
+        "in_domain_count": 3
+      },
+      "per_question": [
+        {
+          "id": "GD-015",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "Yes, you can place an order to secure your item. The product will be shipped once it becomes available.",
+          "rouge_l_f1": 0.72
+        },
+        {
+          "id": "GD-004",
+          "is_ood": false,
+          "category": "orders_and_shipping",
+          "generated_answer": "Yes, please contact our customer support team as soon as possible. We will do our best to accommodate your request if the order has not been processed yet.",
+          "rouge_l_f1": 0.871
+        },
+        {
+          "id": "GD-036",
+          "is_ood": false,
+          "category": "product_information",
+          "generated_answer": "No, we do not offer reservations for out-of-stock products. You can sign up for product notifications to be alerted when the item becomes available again.",
+          "rouge_l_f1": 0.9057
+        },
+        {
+          "id": "OOD-016",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-015",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-009",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-007",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-006",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-019",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-014",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-002",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-001",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-003",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-033",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-008",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-017",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-020",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        },
+        {
+          "id": "OOD-028",
+          "is_ood": true,
+          "category": "out_of_domain",
+          "generated_answer": "I don't have that information.",
+          "correctly_refused": true
+        }
+      ]
+    }
+  ]
+}

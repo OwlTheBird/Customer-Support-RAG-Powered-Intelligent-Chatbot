@@ -12,3 +12,8 @@ dependencies = [
     "langchain-google-genai>=4.2.2",
     "pinecone>=9.0.0",
 ]
+
+[project.optional-dependencies]
+production = [
+    "gunicorn>=26.0.0",
+]

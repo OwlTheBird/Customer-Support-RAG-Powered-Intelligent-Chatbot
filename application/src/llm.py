@@ -1,6 +1,6 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
-from config import AI_API_KEY, PROMPT_TEMPLATE
+from src.config import AI_API_KEY, PROMPT_TEMPLATE
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-3.1-flash-lite",  # other options (gemini-3-flash-preview | gemini-3.1-pro-preview)
