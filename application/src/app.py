@@ -91,12 +91,14 @@ def ask():
 
 
 @app.route("/api/health")
+@limiter.exempt
 def api_health():
     """Quick liveness check used by the dashboard header badge."""
     return jsonify({"status": "ok", "model": AI_MODEL})
 
 
 @app.route("/api/logs")
+@limiter.exempt
 def api_logs():
     """
     GET /api/logs?limit=50
@@ -108,6 +110,7 @@ def api_logs():
 
 
 @app.route("/api/metrics")
+@limiter.exempt
 def api_metrics():
     """
     GET /api/metrics
@@ -117,6 +120,7 @@ def api_metrics():
 
 
 @app.route("/api/rate", methods=["POST"])
+@limiter.exempt
 def api_rate():
     """
     POST /api/rate   body: { log_id: int, rating: 'positive'|'negative' }
@@ -136,11 +140,13 @@ def api_rate():
 
 
 @app.route("/api/experiments")
+@limiter.exempt
 def api_experiments():
     return jsonify([])
 
 
 @app.route("/api/pipeline")
+@limiter.exempt
 def api_pipeline():
     return jsonify({
         "current_stage": "idle",
@@ -153,6 +159,7 @@ def api_pipeline():
 
 
 @app.route("/api/embeddings")
+@limiter.exempt
 def api_embeddings():
     return jsonify({
         "last_refresh": None,
