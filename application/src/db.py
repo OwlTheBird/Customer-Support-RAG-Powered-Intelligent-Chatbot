@@ -167,7 +167,7 @@ def get_metrics() -> dict:
         "queries_change": 0,
         "latency_change": 0,
         "satisfaction_change": 0,
-        "faithfulness_score": 0.91,  # placeholder until RAGAS pipeline writes here
+        "faithfulness_score": 0,  # placeholder until RAGAS pipeline writes here
         "faithfulness_change": 0,
         "hourly_timeline": [dict(r) for r in hourly],
     }

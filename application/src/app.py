@@ -133,3 +133,32 @@ def api_rate():
 
     set_rating(log_id, rating)
     return jsonify({"ok": True})
+
+
+@app.route("/api/experiments")
+def api_experiments():
+    return jsonify([])
+
+
+@app.route("/api/pipeline")
+def api_pipeline():
+    return jsonify({
+        "current_stage": "idle",
+        "progress": 0,
+        "started_at": None,
+        "estimated_completion": None,
+        "stages": [],
+        "history": []
+    })
+
+
+@app.route("/api/embeddings")
+def api_embeddings():
+    return jsonify({
+        "last_refresh": None,
+        "next_refresh": None,
+        "status": "idle",
+        "docs_indexed": 0,
+        "new_docs_pending": 0,
+        "history": []
+    })
